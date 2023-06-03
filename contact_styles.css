@@ -23,7 +23,7 @@
   
   .title {
     font-family: Helvetica, Arial, sans-serif;
-    font-weight: bold;
+    font-weight: 500; 
     font-size: 24px;
     margin-bottom: 30px;
   }

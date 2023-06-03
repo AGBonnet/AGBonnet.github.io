@@ -3,6 +3,8 @@ const numImages = 358; // Adjust the number based on the total number of images 
 const maxImages = 20; // Maximum number of images to be added at the same time
 const mouseSensitivity = 30; // Adjust the threshold for mouse movement sensitivity
 const TimeDelay = 8; // Adjust the delay between each image addition
+const dragThreshold = 50; // The number of pixels to drag the images
+const dragThresholdPercentage = 0.7; // Adjust the percentage for the drag threshold
 
 const artInspiration = document.querySelector('.art-inspirations');
 const title = document.getElementById('title');
@@ -11,13 +13,15 @@ const imageContainer = document.getElementById('image-container');
 const body = document.body;
 
 let imageQueue = []; // Array to store the images
-
+let draggingEnabled = false;
 let screenWidth = window.innerWidth;
 let screenHeight = window.innerHeight;
 
 let mouseMoving = false;
 let lastMouseX = 0;
 let lastMouseY = 0;
+let dragStartX = 0;
+let dragStartY = 0;
 
 function calculateDistance(x1, y1, x2, y2) {
   return Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
@@ -114,9 +118,33 @@ function getRandomImage() {
           enterZoomMode(newImage.src);
         });
 
+        newImage.addEventListener('click', () => {
+          draggingEnabled = !draggingEnabled;
+        });
+
         if (title.classList.contains('faded-out')) {
+          newImage.classList.add('added-image');
+          newImage.addEventListener('click', () => {
+            enterZoomMode(newImage.src);
+          });
           artInspiration.appendChild(newImage); // Add the new image to the DOM after the title has faded out
         }
+
+        newImage.addEventListener('click', () => {
+          newImage.classList.add('distorted-image');
+
+          setTimeout(() => {
+            newImage.classList.remove('distorted-image');
+          }, 1000);
+        });
+
+        newImage.addEventListener('mousedown', handleDragStart);
+
+        // Apply glitch effect on click
+        newImage.addEventListener('click', (event) => {
+          handleDragStart(event);
+          enterZoomMode(newImage.src);
+        });
       });
 
       newImage.addEventListener('error', handleImageError); // Add error event listener
@@ -150,6 +178,44 @@ function handleMouseMove(event) {
   } else {
     mouseMoving = false;
   }
+}
+
+function handleDragStart(event) {
+  if (!draggingEnabled) {
+    return;
+  }
+  dragStartX = event.clientX;
+  dragStartY = event.clientY;
+
+  event.target.style.zIndex = '9999';
+
+  document.addEventListener('mousemove', handleDragMove);
+  document.addEventListener('mouseup', handleDragEnd);
+}
+
+function handleDragMove(event) {
+  const dragEndX = event.clientX;
+  const dragEndY = event.clientY;
+
+  const deltaX = dragEndX - dragStartX;
+  const deltaY = dragEndY - dragStartY;
+
+  const element = event.target;
+
+  const left = parseInt(element.style.left) || 0;
+  const top = parseInt(element.style.top) || 0;
+
+  element.style.left = left + deltaX + 'px';
+  element.style.top = top + deltaY + 'px';
+
+  dragStartX = dragEndX;
+  dragStartY = dragEndY;
+}
+
+function handleDragEnd() {
+  event.target.style.zIndex = '';
+  document.removeEventListener('mousemove', handleDragMove);
+  document.removeEventListener('mouseup', handleDragEnd);
 }
 
 function handleMouseStop() {
