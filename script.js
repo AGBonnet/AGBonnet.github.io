@@ -75,8 +75,8 @@ function getRandomImage() {
           newImage.style.width = 'auto';
           newImage.style.height = imageHeight + 'px';
         }
-        const randomCenterX = Math.random() * (screenWidth - imageWidth/3) + (imageWidth / 6);
-        const randomCenterY = Math.random() * (screenHeight - imageHeight/3) + (imageHeight / 6);
+        const randomCenterX = Math.random() * (screenWidth - imageWidth/3) - (imageWidth / 6);
+        const randomCenterY = Math.random() * (screenHeight - imageHeight/3) - (imageHeight / 6);
 
         const left = randomCenterX - newImage.clientWidth / 2;
         const top = randomCenterY - newImage.clientHeight / 2;
