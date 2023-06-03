@@ -12,25 +12,55 @@ body {
   overflow: hidden;
 }
 
-.added-image {
-  position: absolute;
-  background-color: white;
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 3s forwards;
 }
 
-#art-image {
-  max-width: 100%;
-  max-height: 100%;
-  animation: flash 1s infinite;
+.fade-out {
+  animation: fadeOut 1s forwards;
 }
 
-@keyframes flash {
+.faded-out {
+  opacity: 0;
+}
+
+@keyframes fadeIn {
   0% {
     opacity: 0;
   }
-  50% {
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
     opacity: 1;
   }
   100% {
     opacity: 0;
   }
+}
+
+#title {
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  font-size: 20px;
+}
+
+#title h3 {
+  font-weight: bold;
+}
+
+#title #author {
+  font-weight: lighter;
+}
+
+#subtitle {
+  font-size: 18px;
+  text-align: center;
+  cursor: pointer;
+  font-weight: 100;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1); /* Adjust the values for the desired effect */
 }

@@ -1,10 +1,13 @@
 const visualFlowDirectory = 'VisualFlow/';
 const numImages = 358; // Adjust the number based on the total number of images in the directory
 const maxImages = 20; // Maximum number of images to be added at the same time
-const mouseSensitivity = 20; // Adjust the threshold for mouse movement sensitivity
+const mouseSensitivity = 30; // Adjust the threshold for mouse movement sensitivity
 const TimeDelay = 8; // Adjust the delay between each image addition
 
 const artInspiration = document.querySelector('.art-inspirations');
+const title = document.getElementById('title');
+const subTitle = document.getElementById('subtitle');
+
 let imageQueue = []; // Array to store the images
 
 let screenWidth = window.innerWidth;
@@ -19,6 +22,10 @@ function calculateDistance(x1, y1, x2, y2) {
 }
 
 function getRandomImage() {
+
+  if (!subTitle.classList.contains('clicked')) {
+    return; // Return early if the subtitle has not been clicked
+  }
   const mouseX = lastMouseX;
   const mouseY = lastMouseY;
 
@@ -49,18 +56,17 @@ function getRandomImage() {
       newImage.style.objectFit = 'contain';
       newImage.style.position = 'absolute';
 
-      const imagePercentage = Math.random() * 20 + 20;
-      const imageWidth = Math.floor(screenWidth * (imagePercentage / 100));
-      const imageHeight = Math.floor(screenHeight * (imagePercentage / 100));
+      const imagePercentage = Math.random() * 0.2 + 0.2;
+      const imageWidth = Math.floor(imagePercentage * screenWidth);
+      const imageHeight = Math.floor(imagePercentage * screenHeight);
       const imageRatio = imageWidth / imageHeight;
 
       const originalImage = new Image();
       originalImage.src = randomImage;
 
+
       originalImage.addEventListener('load', () => {
-        const originalImageWidth = originalImage.width;
-        const originalImageHeight = originalImage.height;
-        const originalImageRatio = originalImageWidth / originalImageHeight;
+        const originalImageRatio = originalImage.width / originalImage.height;
 
         if (originalImageRatio > imageRatio) {
           newImage.style.width = imageWidth + 'px';
@@ -69,15 +75,18 @@ function getRandomImage() {
           newImage.style.width = 'auto';
           newImage.style.height = imageHeight + 'px';
         }
-
-        const randomCenterX = Math.floor(Math.random() * screenWidth);
-        const randomCenterY = Math.floor(Math.random() * screenHeight);
+        const randomCenterX = Math.random() * (screenWidth - imageWidth/3) + (imageWidth / 6);
+        const randomCenterY = Math.random() * (screenHeight - imageHeight/3) + (imageHeight / 6);
 
         const left = randomCenterX - newImage.clientWidth / 2;
         const top = randomCenterY - newImage.clientHeight / 2;
 
         newImage.style.left = left + 'px';
         newImage.style.top = top + 'px';
+
+        if (title.classList.contains('faded-out')) {
+          artInspiration.appendChild(newImage); // Add the new image to the DOM after the title has faded out
+        }
       });
 
       imageQueue.push(newImage); // Add the new image to the queue
@@ -86,8 +95,6 @@ function getRandomImage() {
         const removedImage = imageQueue.shift(); // Remove the oldest image from the queue
         artInspiration.removeChild(removedImage); // Remove the image from the DOM
       }
-
-      artInspiration.appendChild(newImage);
     })
     .catch(error => {
       console.error('Error fetching images:', error);
@@ -98,28 +105,51 @@ function handleMouseMove(event) {
   const mouseX = event.clientX;
   const mouseY = event.clientY;
 
-  if (!mouseMoving) {
-    mouseMoving = true;
+  const distance = calculateDistance(lastMouseX, lastMouseY, mouseX, mouseY);
+
+  if (distance >= mouseSensitivity) {
     lastMouseX = mouseX;
     lastMouseY = mouseY;
-    getRandomImage();
-  } else {
-    const distance = calculateDistance(lastMouseX, lastMouseY, mouseX, mouseY);
-    if (distance >= mouseSensitivity) { // Adjust the threshold for mouse movement sensitivity
-      lastMouseX = mouseX;
-      lastMouseY = mouseY;
+
+    if (!mouseMoving) {
+      mouseMoving = true;
       getRandomImage();
     }
+  } else {
+    mouseMoving = false;
   }
 }
 
 function handleMouseStop() {
-  mouseMoving = false;
+  if (!title.classList.contains('fade-in')) {
+    mouseMoving = false;
+  }
+}
+function fadeOutTitle() {
+  if (subTitle.classList.contains('clicked')) {
+    title.classList.remove('fade-in');
+    title.classList.add('fade-out');
+    // Wait 3 seconds then add faded-out class
+    setTimeout(() => {
+      title.classList.add('faded-out');
+    }
+      , 1000);
+  }
 }
 
 window.addEventListener('mousemove', debounce(handleMouseMove, TimeDelay));
 window.addEventListener('mouseout', handleMouseStop);
 window.addEventListener('blur', handleMouseStop);
+
+subTitle.addEventListener('click', () => {
+  subTitle.classList.add('clicked');
+  fadeOutTitle();
+
+  setTimeout(() => {
+    subTitle.style.opacity = 1;
+    getRandomImage(); // Add the first image after the subtitle is clicked
+  }, 1000);
+});
 
 // Debounce function to limit the frequency of event handling
 function debounce(callback, delay) {
