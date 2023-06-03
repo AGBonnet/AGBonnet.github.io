@@ -5,24 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Visual Flow</title>
   <link rel="stylesheet" href="styles.css">
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const menuToggle = document.querySelector('.menu-toggle');
-      const headerMenu = document.querySelector('.header-menu');
-
-      menuToggle.addEventListener('click', function () {
-        menuToggle.classList.toggle('open');
-        headerMenu.classList.toggle('open');
-      });
-    });
-  </script>
+  <script src="menu.js"></script>
+  
 </head>
 <body>
   <div class="menu-toggle"></div>
   <nav class="header-menu">
     <ul>
-      <li><a href="index.html">PORTFOLIO</a></li>
       <li><a href="index.html">VISUAL FLOW</a></li>
       <li><a href="contact.html">CONTACT</a></li>
     </ul>
@@ -31,7 +20,7 @@
   <div id="welcome-screen" class="art-inspirations">
     <div id="title" class="fade-in">
       <h3>Visual Flow <span id="author">by Hypnognosis</span></h3>
-      <h4 id="subtitle">Enter the world.</h4>
+      <h4 id="subtitle">Enter this world.</h4>
     </div>
   </div>
 
