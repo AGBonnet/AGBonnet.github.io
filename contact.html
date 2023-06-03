@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Page</title>
+  <!-- First style sheet -->
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="contact_styles.css">
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const menuToggle = document.querySelector('.menu-toggle');
+      const headerMenu = document.querySelector('.header-menu');
+
+      menuToggle.addEventListener('click', function () {
+        menuToggle.classList.toggle('open');
+        headerMenu.classList.toggle('open');
+      });
+
+      const textarea = document.getElementById('message');
+      const form = document.querySelector('.contact-form');
+
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        if (textarea.value.trim() !== '') {
+          alert('Message sent!');
+          textarea.value = '';
+        }
+      });
+
+      textarea.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter' && !event.shiftKey) {
+          event.preventDefault();
+          form.submit();
+        }
+      });
+    });
+  </script>
+</head>
+<body>
+  <div class="menu-toggle"></div>
+  <nav class="header-menu">
+    <ul>
+      <li><a href="index.html">PORTFOLIO</a></li>
+      <li><a href="index.html">VISUAL FLOW</a></li>
+      <li><a href="contact.html">CONTACT</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="container">
+      <h1 class="title">Write to me.</h1>
+      <form class="contact-form">
+        <div class="form-group">
+          <textarea id="message" name="message" placeholder="Press Enter to send" required></textarea>
+        </div>
+        <button type="submit" style="display: none;"></button>
+      </form>
+    </div>
+  </main>
+</body>
+</html>
