@@ -1,10 +1,12 @@
+
 // ---------------- Variables ---------------- //
 
 const visualFlowDirectory = 'VisualFlow/';
 const numImages = 358; // Adjust the number based on the total number of images in the directory
 const maxImages = 20; // Maximum number of images to be added at the same time
-const mouseSensitivity = 30; // Adjust the threshold for mouse movement sensitivity
+const mouseSensitivity = 20; // Adjust the threshold for mouse movement sensitivity
 const TimeDelay = 8; // Adjust the delay between each image addition
+const imageFadeDuration = 100; // Adjust the fade duration as needed (in milliseconds)
 
 const artInspiration = document.querySelector('.art-inspirations');
 const title = document.getElementById('title');
@@ -24,12 +26,6 @@ let mouseMoving = false;
 let lastMouseX = 0;
 let lastMouseY = 0;
 
-// Deprecated variables for dragging
-// const dragThreshold = 50; // The number of pixels to drag the images
-// const dragThresholdPercentage = 0.7; // Adjust the percentage for the drag threshold
-//let draggingEnabled = false;
-//let dragStartX = 0;
-//let dragStartY = 0;
 
 // ---------------- Functions ---------------- //
 
@@ -109,6 +105,7 @@ function addNewImage(randomImage) {
   newImage.classList.add('added-image');
   newImage.style.objectFit = 'contain';
   newImage.style.position = 'absolute';
+  newImage.style.transition = `opacity ${imageFadeDuration / 1000}s ease-in-out`;
 
   const imagePercentage = Math.random() * 0.2 + 0.2;
   const imageWidth = Math.floor(imagePercentage * screenWidth);
@@ -140,7 +137,11 @@ function addNewImage(randomImage) {
 
     if (title.classList.contains('faded-out')) {
       newImage.classList.add('added-image');
+      newImage.style.opacity = 0;
       artInspiration.appendChild(newImage);
+      setTimeout(() => {
+        newImage.style.opacity = 1;
+      }, 0);
     
       if (!zoomedIn) { // Add this condition to ensure zoom mode is not active
         newImage.addEventListener('click', () => {
@@ -161,9 +162,12 @@ function addNewImage(randomImage) {
 
 function handleImageError(event) {
   const errorImage = event.target;
-  if (errorImage.parentNode) {
-    errorImage.parentNode.removeChild(errorImage); // Remove the image from the DOM if it fails to load
-  }
+  errorImage.style.opacity = 0;
+  setTimeout(() => {
+    if (errorImage.parentNode) {
+      errorImage.parentNode.removeChild(errorImage);
+    }
+  }, imageFadeDuration);
 }
 
 function getRandomImage() {
