@@ -8,7 +8,7 @@
     z-index: 9999;
     cursor: pointer;
     border-radius: 50%;
-    transition: background-color 0.3s ease-in-out;
+    transition: background-color 0.2s ease-in-out;
   }
   
   .menu-toggle::before,
@@ -21,7 +21,7 @@
     width: 80%;
     height: 2px;
     background-color: black;
-    transition: transform 0.3s ease-in-out;
+    transition: transform 0.2s ease-in-out;
     pointer-events: none; /* Disable pointer events on open state */
   }
   
@@ -50,7 +50,7 @@
     width: 200px;
     height: 100vh;
     z-index: 10000;
-    transition: left 0.3s ease-in-out;
+    transition: left 0.2s ease-in-out;
   }
   
   .header-menu.open {

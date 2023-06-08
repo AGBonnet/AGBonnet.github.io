@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Poetry Page</title>
+  <link rel="stylesheet" href="../styles/styles.css">
+  <link rel="stylesheet" href="../styles/poetry.css">
+  <link rel="stylesheet" href="../styles/menu.css">
+  <script src="../scripts/menu.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const lines = document.querySelectorAll('.line');
+
+      function checkFadeIn() {
+        lines.forEach((line) => {
+          const rect = line.getBoundingClientRect();
+          const isVisible =
+            rect.top < window.innerHeight - 100 && rect.bottom >= 100; /* Adjust the visibility conditions */
+
+          if (isVisible) {
+            line.classList.add('fade-in');
+          } else {
+            line.classList.remove('fade-in');
+          }
+        });
+      }
+
+      function startFadeInTimer() {
+        checkFadeIn();
+        setInterval(checkFadeIn, 10); // Adjust the interval time as needed
+      }
+
+      window.addEventListener('scroll', startFadeInTimer);
+      window.addEventListener('resize', startFadeInTimer);
+
+      startFadeInTimer(); // Trigger the fade-in effect when the page loads
+
+      // Check initial visibility
+      checkFadeIn();
+    });
+  </script>
+</head>
+<body>
+  <div class="menu-toggle"></div>
+  <nav class="header-menu">
+    <ul>
+      <li><a href="../index.html">VISUAL FLOW</a></li>
+      <li><a href="../pages/poetry.html">POETRY</a></li> 
+      <li><a href="../pages/contact.html">CONTACT</a></li>
+    </ul>
+  </nav>
+
+  <div class="poetry-container">
+    <h1>The Memory Palace</h1>
+    <div class="poem" style="height: 2000px;"> <!-- Increase the height here -->
+      <h2>I. Along the Corridor</h2>
+      <div class="stanza">
+        <p class="line">An invitation to madness inscribed on a luminous mirror;</p>
+        <p class="line">I watch my thousand-fold image on both sides stretching</p>
+        <p class="line">as the ringing voice of a hunch-backed woman </p>
+        <p class="line">reaches me with steady rythm, pulsating, prowling</p>
+      </div>
+      <div class="stanza">
+        <p class="line">Her ancient face buried among deep furs, </p>
+        <p class="line">knots of fingers dissimulate a golden key</p>
+        <p class="line">and by a mute word orders me to follow </p>
+        <p class="line">Along a corridor adorned with familiar sights;</p>
+      </div>
+      <div class="stanza">
+        <p class="line">A printing press oozing with black goo</p>
+        <p class="line">An artificial greenhouse, its earth bearing</p>
+        <p class="line">the unspeakable scars of an unruly beast</p>
+        <p class="line">Crying mandragoras, pulled by their tuberculosis hair</p>
+        <p class="line">A guitar lesson for mechanical girls, undeserving</p>
+        <p class="line">An ornate clock rewound by blindfolded Fate</p>
+      </div>
+      <div class="stanza">
+        <p class="line">One grotesque idea standing amidst</p>
+        <p class="line">a lavish interior of crimson cushions</p>
+        <p class="line">‘See that red wine stain on her shirt?’</p>
+        <p class="line">Bitemarks on an unripe fruit pleasing unknown people</p>
+      </div>
+      <div class="stanza">
+        <p class="line">Screeches, vain outpourings</p>
+        <p class="line">of abandoned silence and laborious love</p>
+        <p class="line">hiding behind gauzes of silky smoke</p>
+        <p class="line">— ‘Back to the gate please’</p>
+      </div>
+      <div class="stanza">
+        <p class="line">Led by the arm into a green room, dimly lit</p>
+        <p class="line">In its midst sits an antique oak wardrobe,</p>
+        <p class="line">heavy and unmoving. Its mouth welcomes the key</p>
+        <p class="line">unwillingly offered by my companion</p>
+      </div>
+      <div class="stanza">
+        <p class="line">Squealing under the strain, the door revolves</p>
+        <p class="line">and swallows me whole in its acid smile</p>
+        <p class="line">Inside, a warm cocoon of fur coats and ankle-deep snow</p>
+        <p class="line">reveals a strange land where memories lie</p>
+      </div>
+    </div> <!-- end of poem -->
+  </div> <!-- end of poetry-container -->
+  </body>
+</html>
