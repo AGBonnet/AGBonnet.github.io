@@ -1,5 +1,4 @@
 #!/bin/bash
-# find VisualFlow/ -type f -exec basename {} \; | jq -R '.' | jq -s '{"images": .}' > images.json
 counter=1
 for file in VisualFlow/*; do
     extension="${file##*.}"
@@ -7,3 +6,4 @@ for file in VisualFlow/*; do
     mv "$file" "VisualFlow/${new_name}"
     counter=$((counter + 1))
 done
+find VisualFlow/ -type f -exec basename {} \; | jq -R '.' | jq -s '{"images": .}' > images.json
