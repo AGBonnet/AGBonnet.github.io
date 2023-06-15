@@ -4,45 +4,26 @@ body {
   padding: 0;
 }
 
-/* Poetry container */
 .poetry-container {
   width: 100%;
+  height: calc(100vh - 40px);   
   max-width: 800px;
+  padding: 0px;
   margin: 0 auto;
-  padding: 20px;
-  text-align: left; /* Align text to the left */
-  overflow-y: scroll; /* Enable scrolling */
-  height: calc(100vh - 40px); /* Adjust the height to fit your needs */
-  scroll-behavior: smooth; /* Enable smooth scrolling behavior */
-}
-
-
-
-.poetry-container::-webkit-scrollbar {
-  width: 0.5em; /* Set the width of the scrollbar */
-}
-
-.poetry-container::-webkit-scrollbar-track {
-  background-color: transparent; /* Set the background color of the scrollbar track */
-}
-
-.poetry-container::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0); /* Set the background color of the scrollbar thumb */
+  text-align: left;             
+  overflow-y: scroll;          
+  scroll-behavior: smooth;      
 }
 
 .poetry-container h1 {
-  text-align: center; /* Align text to the left */
+  text-align: center;
   font-size: 40px;
   font-weight: bold;
-  margin-top: 100px; /* Add margin on top of the poem title */
+  margin-top: 100px; 
   margin-bottom: 60px;
 }
 
-.poetry-container .poem {
-  margin-bottom: 40px;
-}
-
-.poetry-container .poem h2 {
+.poetry-container h2 {
   font-size: 26px;
   text-align: center;
   font-weight: bold;
@@ -50,25 +31,16 @@ body {
 }
 
 .poetry-container .stanza {
-  margin-bottom: 40px; /* Increase spacing between stanzas */
+  margin-bottom: 40px;  /* Increase spacing between stanzas */
 }
 
 .poetry-container .line {
-  font-size: 22px; /* Reduce the font size for lines */
-  margin: 5px 0; /* Reduce spacing between lines */
-  /* Skip some space on the left */
-  padding-left: 100px;
-  line-height: 1.2; /* Adjust line height as desired */
+  font-size: 22px;
+  margin: 5px 0; 
+  padding-left: 150px;
+  line-height: 1.2; 
   opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.poetry-container.fade-in .line {
-  opacity: 1;
-}
-
-.poetry-container.fade-out .line {
-  opacity: 0;
+  transition: opacity 0.1s;
 }
 
 @keyframes fade-in {
@@ -89,11 +61,14 @@ body {
   }
 }
 
-.line {
-  opacity: 0;
-  transition: opacity 0.1s ease; /* Adjust the transition time */
+/* Hide the scrollbar */
+.poetry-container::-webkit-scrollbar {
+  width: 0.5em; /* Set the width of the scrollbar */
+}
+.poetry-container::-webkit-scrollbar-track {
+  background-color: transparent; /* Set the background color of the scrollbar track */
+}
+.poetry-container::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0); /* Set the background color of the scrollbar thumb */
 }
 
-.line.fade-in {
-  opacity: 1;
-}
