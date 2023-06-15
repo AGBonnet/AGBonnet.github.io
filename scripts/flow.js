@@ -26,6 +26,11 @@ let mouseMoving = false;
 let lastMouseX = 0;
 let lastMouseY = 0;
 
+let deviceRotating = false;
+let lastDeviceGamma = 0;
+let lastDeviceBeta = 0;
+
+
 
 // ---------------- Functions ---------------- //
 
@@ -78,6 +83,36 @@ function exitZoomMode() {
   zoomedContainer.style.display = 'none';
   zoomedSvg.innerHTML = ''; // Clear the SVG content
 }
+
+// Mobile phone --> Add images on device rotation
+
+function handleDeviceOrientation(event) {
+  const deviceGamma = event.gamma;
+  const deviceBeta = event.beta;
+
+  const gammaDistance = Math.abs(lastDeviceGamma - deviceGamma);
+  const betaDistance = Math.abs(lastDeviceBeta - deviceBeta);
+
+  if ((gammaDistance >= mouseSensitivity || betaDistance >= mouseSensitivity) && subTitle.classList.contains('clicked')) {
+    lastDeviceGamma = deviceGamma;
+    lastDeviceBeta = deviceBeta;
+
+    if (!deviceRotating && !zoomedIn) {
+      deviceRotating = true;
+      getRandomImage();
+    }
+  } else {
+    deviceRotating = false;
+  }
+}
+
+function handleDeviceStop() {
+  if (!title.classList.contains('fade-in')) {
+    deviceRotating = false;
+  }
+}
+
+
 
 // -------------- Image Functions -------------- //
 
@@ -234,6 +269,8 @@ function fadeOutTitle() {
 window.addEventListener('mousemove', debounce(handleMouseMove, TimeDelay));
 window.addEventListener('mouseout', handleMouseStop);
 window.addEventListener('blur', handleMouseStop);
+window.addEventListener('deviceorientation', debounce(handleDeviceOrientation, TimeDelay));
+window.addEventListener('deviceorientation', handleDeviceStop);
 
 // Click event for zooming
 window.addEventListener('click', (event) => {
@@ -252,6 +289,24 @@ subTitle.addEventListener('click', () => {
   }, 1000);
 });
 
+// ------------------- Mobile Adaptation ------------------- //
+
+// Add the following code at the beginning of your script to detect mobile devices and adjust behavior accordingly:
+
+const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+if (isMobileDevice) {
+  // Remove mouse event listeners
+  window.removeEventListener('mousemove', debounce(handleMouseMove, TimeDelay));
+  window.removeEventListener('mouseout', handleMouseStop);
+  window.removeEventListener('blur', handleMouseStop);
+
+  // Add mobile-specific event listeners
+  window.addEventListener('deviceorientation', debounce(handleDeviceOrientation, TimeDelay));
+  window.addEventListener('deviceorientation', handleDeviceStop);
+}
+
+
 // Debounce function to limit the frequency of event handling
 function debounce(callback, delay) {
   let timerId;
@@ -262,3 +317,4 @@ function debounce(callback, delay) {
     }, delay);
   };
 }
+
