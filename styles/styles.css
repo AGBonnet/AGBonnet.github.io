@@ -1,5 +1,17 @@
 /* ------ Elements ------- */
 
+@font-face {
+  font-family: 'Helvetica';
+  src: url('fonts/Helvetica.ttf');
+  /* Add additional font formats here if available (e.g., woff, woff2) */
+}
+
+@font-face {
+  font-family: 'Helvetica Light';
+  src: url('fonts/Helvetica-Light.ttf');
+  /* Add additional font formats here if available (e.g., woff, woff2) */
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -62,7 +74,7 @@ body {
 /* ------ Welcome Screen ------- */
 
 #title {
-  font-family: Helvetica;
+  font-family: Helvetica, Arial, sans-serif;
   text-align: center;
   font-size: 20px;
 }
@@ -72,12 +84,12 @@ body {
 }
 
 #title #author {
-  font-family: Helvetica Light;
+  font-family: 'Helvetica Light', Arial, sans-serif;
   font-weight: lighter;
 }
 
 #subtitle {
-  font-family: Helvetica Light;
+  font-family: 'Helvetica Light', Arial, sans-serif;
   font-size: 18px;
   text-align: center;
   cursor: pointer;
