@@ -5,6 +5,7 @@ const visualFlowDirectory = 'VisualFlow/';
 const numImages = 358; // Adjust the number based on the total number of images in the directory
 const maxImages = 20; // Maximum number of images to be added at the same time
 const mouseSensitivity = 20; // Adjust the threshold for mouse movement sensitivity
+const rotationSensitivity = 3; // Adjust the threshold for device rotation sensitivity
 const TimeDelay = 8; // Adjust the delay between each image addition
 const imageFadeDuration = 100; // Adjust the fade duration as needed (in milliseconds)
 
@@ -93,7 +94,7 @@ function handleDeviceOrientation(event) {
   const gammaDistance = Math.abs(lastDeviceGamma - deviceGamma);
   const betaDistance = Math.abs(lastDeviceBeta - deviceBeta);
 
-  if ((gammaDistance >= mouseSensitivity || betaDistance >= mouseSensitivity) && subTitle.classList.contains('clicked')) {
+  if ((gammaDistance >= rotationSensitivity || betaDistance >= rotationSensitivity) && subTitle.classList.contains('clicked')) {
     lastDeviceGamma = deviceGamma;
     lastDeviceBeta = deviceBeta;
 
@@ -265,12 +266,18 @@ function fadeOutTitle() {
 
 // ----------------- Event Listeners ----------------- //
 
-// Mousemove event
-window.addEventListener('mousemove', debounce(handleMouseMove, TimeDelay));
-window.addEventListener('mouseout', handleMouseStop);
-window.addEventListener('blur', handleMouseStop);
-window.addEventListener('deviceorientation', debounce(handleDeviceOrientation, TimeDelay));
-window.addEventListener('deviceorientation', handleDeviceStop);
+const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+if (isMobileDevice) {
+  window.addEventListener('deviceorientation', debounce(handleDeviceOrientation, TimeDelay));
+  window.addEventListener('deviceorientation', handleDeviceStop);
+}
+else {
+  window.addEventListener('mousemove', debounce(handleMouseMove, TimeDelay));
+  window.addEventListener('mouseout', handleMouseStop);
+  window.addEventListener('blur', handleMouseStop);
+
+}
 
 // Click event for zooming
 window.addEventListener('click', (event) => {
@@ -288,24 +295,6 @@ subTitle.addEventListener('click', () => {
     getRandomImage(); // Add the first image after the subtitle is clicked
   }, 1000);
 });
-
-// ------------------- Mobile Adaptation ------------------- //
-
-// Add the following code at the beginning of your script to detect mobile devices and adjust behavior accordingly:
-
-const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-
-if (isMobileDevice) {
-  // Remove mouse event listeners
-  window.removeEventListener('mousemove', debounce(handleMouseMove, TimeDelay));
-  window.removeEventListener('mouseout', handleMouseStop);
-  window.removeEventListener('blur', handleMouseStop);
-
-  // Add mobile-specific event listeners
-  window.addEventListener('deviceorientation', debounce(handleDeviceOrientation, TimeDelay));
-  window.addEventListener('deviceorientation', handleDeviceStop);
-}
-
 
 // Debounce function to limit the frequency of event handling
 function debounce(callback, delay) {
