@@ -1,5 +1,5 @@
 body {
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: Helvetica;
   margin: 0;
   padding: 0;
 }
@@ -14,16 +14,17 @@ body {
   scroll-behavior: smooth;      
 }
 
-.poetry-container h1 {
-  margin-left: 33%; 
-  font-size: 24px;
+.poetry-container h1 { 
+  font-size: 30px;
+  text-align: center;
   font-weight: bold;
   margin-top: 100px; 
   margin-bottom: 60px;
 }
 
 .poetry-container h2 {
-  font-size: 20px;
+  /* Add margin on top of the h2 title */
+  font-size: 26px;
   font-weight: bold;
   transition: opacity 0.1s;
 }
@@ -34,7 +35,7 @@ body {
 }
 
 .poetry-container .line {
-  font-size: 18px;
+  font-size: 22px;
   margin: 10px 0; 
   line-height: 1.2; 
   opacity: 0;
