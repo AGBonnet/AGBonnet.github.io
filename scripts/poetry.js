@@ -1,23 +1,30 @@
 document.addEventListener('DOMContentLoaded', function () {
-  const lines = document.querySelectorAll('.line');
+const lines = document.querySelectorAll('.line');
 
-  function updateFadeInOut() {
+function checkFadeIn() {
+  lines.forEach((line) => {
+    const rect = line.getBoundingClientRect();
+    const isVisible =
+      rect.top < window.innerHeight - 100 && rect.bottom >= 100; /* Adjust the visibility conditions */
 
-    lines.forEach((line) => {
-      const rect = line.getBoundingClientRect();    // --> size of line and its position relative to the viewport
-      const lineCenter = rect.top + rect.height / 2; // --> center of line relative to viewport
-      const distFromCenter = Math.abs(window.innerHeight / 2 - lineCenter); // --> distance from center of line to center of viewport
-      // Make opacity 1 when line is at center of viewport, and 0 when line is at top or bottom of viewport, with quadratic easing
-      const opacity = 1 - Math.pow(distFromCenter / (window.innerHeight / 2), 2);
-      
-      line.style.opacity = opacity;
-    });
-  }
+    if (isVisible) {
+      line.classList.add('fade-in');
+    } else {
+      //line.classList.remove('fade-in');
+    }
+  });
+}
 
-  function startFadeInOut() {
-    updateFadeInOut();
-  }
+function startFadeInTimer() {
+  checkFadeIn();
+  setInterval(checkFadeIn, 10); // Adjust the interval time as needed
+}
 
-  window.addEventListener('scroll', startFadeInOut);
-  window.addEventListener('resize', startFadeInOut);
+window.addEventListener('scroll', startFadeInTimer);
+window.addEventListener('resize', startFadeInTimer);
+
+startFadeInTimer(); // Trigger the fade-in effect when the page loads
+
+// Check initial visibility
+checkFadeIn();
 });

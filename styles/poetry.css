@@ -7,7 +7,6 @@ body {
 .poetry-container {
   width: 100%;
   height: calc(100vh - 40px);   
-  max-width: 800px;
   padding: 0px;
   margin: 0 auto;
   text-align: left;             
@@ -16,28 +15,27 @@ body {
 }
 
 .poetry-container h1 {
-  text-align: center;
-  font-size: 40px;
+  margin-left: 33%; 
+  font-size: 24px;
   font-weight: bold;
   margin-top: 100px; 
   margin-bottom: 60px;
 }
 
 .poetry-container h2 {
-  font-size: 26px;
-  text-align: center;
+  font-size: 20px;
   font-weight: bold;
-  margin-bottom: 40px; 
+  transition: opacity 0.1s;
 }
 
 .poetry-container .stanza {
   margin-bottom: 40px;  /* Increase spacing between stanzas */
+  margin-left: 33%;
 }
 
 .poetry-container .line {
-  font-size: 22px;
-  margin: 5px 0; 
-  padding-left: 150px;
+  font-size: 18px;
+  margin: 10px 0; 
   line-height: 1.2; 
   opacity: 0;
   transition: opacity 0.1s;
@@ -52,14 +50,6 @@ body {
   }
 }
 
-@keyframes fade-out {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
 
 /* Hide the scrollbar */
 .poetry-container::-webkit-scrollbar {
