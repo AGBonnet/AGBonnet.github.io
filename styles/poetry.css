@@ -2,44 +2,64 @@ body {
   font-family: Helvetica;
   margin: 0;
   padding: 0;
+  background-color: white;
+  color: #222;
 }
 
 .poetry-container {
-  width: 100%;
-  height: calc(100vh - 40px);   
-  padding: 0px;
-  margin: 0 auto;
-  text-align: left;             
-  overflow-y: scroll;          
-  scroll-behavior: smooth;      
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-gap: 20px;
+  padding: 0;
+  margin: auto; /* Set margin to auto to center horizontally */
+  text-align: left;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  height: calc(100vh - 40px);
+  max-width: 800px; /* Set a maximum width for the container */
 }
 
-.poetry-container h1 { 
+.poetry-container #poem-content {
+  width: 800px; /* Set the width to fill the container */
+}
+
+.poetry-container h1 {
   font-size: 30px;
   text-align: center;
   font-weight: bold;
-  margin-top: 100px; 
-  margin-bottom: 60px;
+  margin-top: 250px;
+  margin-bottom: 40px;
+  grid-column: 1 / -1;
 }
 
 .poetry-container h2 {
-  /* Add margin on top of the h2 title */
   font-size: 26px;
   font-weight: bold;
+  margin-top: 0;
   transition: opacity 0.1s;
+  grid-column: 4 / span 6;
 }
 
 .poetry-container .stanza {
-  margin-bottom: 40px;  /* Increase spacing between stanzas */
-  margin-left: 33%;
+  margin-bottom: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  grid-column: 4 / span 6;
 }
 
 .poetry-container .line {
   font-size: 22px;
-  margin: 10px 0; 
-  line-height: 1.2; 
+  margin: 10px 0;
+  margin-left: 150px;
+  line-height: 1.5;
   opacity: 0;
-  transition: opacity 0.1s;
+  transition: opacity 0.5s;
+  grid-column: 2 / span 11; /* Update to span 11 columns */
+}
+
+.poetry-container .line.fade-in {
+  opacity: 1;
+  animation: fade-in 1s ease-out;
 }
 
 @keyframes fade-in {
@@ -51,15 +71,61 @@ body {
   }
 }
 
+/* Buttons to choose poem */
 
-/* Hide the scrollbar */
+.poetry-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  margin: 0;
+  background-color: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px; /* Adjust the height as needed */
+  z-index: 9999;
+}
+
+.poetry-buttons button {
+  font-family: Helvetica;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #222;
+  border: none;
+  padding: 8px 16px;
+  margin: 0 8px; /* Add some margin between the buttons */
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.poetry-buttons button.active {
+  background-color: black;
+}
+
+.poetry-buttons button:hover {
+  background-color: white;
+  color: #222;
+}
+
+.poetry-buttons.open button {
+  transition-delay: 0.2s;
+}
+
+/* Hide scrollbar */
+
 .poetry-container::-webkit-scrollbar {
-  width: 0.5em; /* Set the width of the scrollbar */
+  width: 0.5em;
 }
+
 .poetry-container::-webkit-scrollbar-track {
-  background-color: transparent; /* Set the background color of the scrollbar track */
+  background-color: transparent;
 }
+
 .poetry-container::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0); /* Set the background color of the scrollbar thumb */
+  background-color: rgba(0, 0, 0, 0);
 }
 

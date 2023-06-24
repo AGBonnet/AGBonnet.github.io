@@ -1,30 +1,74 @@
 document.addEventListener('DOMContentLoaded', function () {
-const lines = document.querySelectorAll('.line');
+  const memoryPalaceButton = document.getElementById('memory-palace-button');
+  const fauneButton = document.getElementById('faune-aux-jumelles-button');
+  const poemContent = document.getElementById('poem-content');
+  const banner = document.querySelector('.poetry-buttons');
 
-function checkFadeIn() {
-  lines.forEach((line) => {
-    const rect = line.getBoundingClientRect();
-    const isVisible =
-      rect.top < window.innerHeight - 100 && rect.bottom >= 100; /* Adjust the visibility conditions */
+  memoryPalaceButton.classList.add('active'); // Add the 'active' class to the memoryPalaceButton
+  loadPoemContent('poems/palace.html'); // Load the 'Memory Palace' poem by default
 
-    if (isVisible) {
-      line.classList.add('fade-in');
-    } else {
-      //line.classList.remove('fade-in');
-    }
+  memoryPalaceButton.addEventListener('click', () => {
+    loadPoemContent('poems/palace.html');
+    memoryPalaceButton.classList.add('active');
+    fauneButton.classList.remove('active');
   });
-}
 
-function startFadeInTimer() {
+  fauneButton.addEventListener('click', () => {
+    loadPoemContent('poems/faune.html');
+    fauneButton.classList.add('active');
+    memoryPalaceButton.classList.remove('active');
+  });
+
+  function loadPoemContent(url) {
+    fetch(url)
+      .then(response => response.text())
+      .then(data => {
+        poemContent.innerHTML = data;
+        startFadeInTimer();
+      })
+      .catch(error => {
+        console.error('Error loading poem content:', error);
+      });
+  }
+
+  function checkFadeIn() {
+    const lines = poemContent.querySelectorAll('.line'); // Target lines within the loaded poem content
+    lines.forEach(line => {
+      const rect = line.getBoundingClientRect();
+      const isVisible = rect.top < window.innerHeight - 100 && rect.bottom >= 100;
+      if (isVisible) {
+        line.classList.add('fade-in');
+      } else {
+        //line.classList.remove('fade-in');
+      }
+    });
+  }
+
+  function startFadeInTimer() {
+    checkFadeIn();
+    setInterval(checkFadeIn, 10); // Adjust the interval time as needed
+  }
+
+  startFadeInTimer(); // Trigger the fade-in effect when the page loads
+
+  // Check initial visibility
   checkFadeIn();
-  setInterval(checkFadeIn, 10); // Adjust the interval time as needed
-}
 
-window.addEventListener('scroll', startFadeInTimer);
-window.addEventListener('resize', startFadeInTimer);
+  function handleScroll() {
+    console.log('scroll')
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
-startFadeInTimer(); // Trigger the fade-in effect when the page loads
+    // Check if the user has scrolled down
+    if (scrollTop > 0) {
+      banner.style.display = 'none';
+      scrolledDown = true;
+    } else if (scrollTop === 0) {
+      banner.style.display = 'flex';
+      scrolledDown = false;
+    }
+  }
 
-// Check initial visibility
-checkFadeIn();
+  window.addEventListener('scroll', handleScroll);
+  window.addEventListener('resize', handleScroll);
+
 });
