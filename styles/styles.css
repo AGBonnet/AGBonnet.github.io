@@ -116,6 +116,23 @@ body {
   cursor: pointer;
 }
 
+/* Adjust the display of title lines for mobile devices */
+@media (max-width: 768px) {
+  .title-line, .author {
+    display: block;
+    text-align: center;
+    margin: 20px 0;
+  }
+
+  .title-line {
+    font-size: 24px;
+  }
+
+  #subtitle {
+    margin-top: 50%; 
+  }
+}
+
 /* ------ Zooming ------- */
 
 #zoomed-container {
@@ -154,4 +171,3 @@ body.zoom-mode {
 .zoom-mode {
   overflow: hidden;
 }
-
