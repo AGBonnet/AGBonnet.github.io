@@ -23,6 +23,7 @@ body {
 
 .poetry-container .stanza {
   margin-bottom: 40px;
+  margin-left: 20%;
 }
 
 .poetry-container .line {
@@ -34,7 +35,7 @@ body {
 
 .poetry-container .line.title {
   /* center horizontally */
-  margin-left: 35%;
+  margin-left: 20%;
   text-align: center;
   font-size: 30px;
   font-weight: bold;
@@ -71,6 +72,20 @@ body {
   cursor: pointer;
   transition: color 0.3s;
 }
+
+@media (max-width: 768px) {
+  .poetry-container .line {
+    font-size: 14px;
+    margin-left: 20px;
+  }
+
+  .poetry-container .line.title {
+    margin-left: 10px;
+    font-size: 20px;
+  }
+}
+
+
 
 /* Buttons to choose poem */
 
@@ -130,33 +145,6 @@ body {
 .poetry-container::-webkit-scrollbar-thumb {
   background-color: rgba(0, 0, 0, 0);
 }
-
-
-
-@media (max-width: 768px) {
-  .poetry-container .line {
-    font-size: 18px;
-    margin-left: 20px;
-    grid-column: 1 / -1;
-  }
-
-  .poetry-container .line.title {
-    margin-left: 10px;
-    font-size: 24px;
-  }
-}
-
-@media (max-width: 480px) {
-  .poetry-container .line.title {
-    margin-left: 0;
-    font-size: 20px;
-  }
-
-  .poetry-container .line {
-    margin-left: 10px;
-  }
-}
-
 
 /* Warning banner */
 
