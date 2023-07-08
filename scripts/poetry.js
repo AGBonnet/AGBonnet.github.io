@@ -1,37 +1,43 @@
-const poemContainer = document.getElementById('poem');
+const poemContainer = document.getElementsByClassName('poetry-container')[0];
 const words = document.getElementsByClassName('word');
+const poetryButtons = document.querySelector('.poetry-buttons');
 const memoryPalaceButton = document.getElementById('memory-palace-button');
 const fauneButton = document.getElementById('faune-aux-jumelles-button');
-const poemContent = document.getElementById('poem-content');
+const poemContent = document.getElementById('poem');
+let prevScrollPos = 0;
 const timeFade = 5;
+const pageHeightThreshold = 0.2; // Adjust this value to set the threshold for initial scrolling
+let poemDisplayed = false;
 let embeddings; 
 
 function loadPoemContent(url) {
-  fetch(url)
-    .then(response => response.text())
-    .then(data => {
-      poemContent.innerHTML = data;
-      //startFadeInTimer();
-    })
-    .catch(error => {
-      console.error('Error loading poem content:', error);
-    });
+    prevScrollPos = 0; // Reset prevScrollPos when loading new content
+    poemContainer.scrollTop = 0; // Reset the scroll position to the top
+    fetch(url)
+        .then(response => response.text())
+        .then(data => {
+        poemContent.innerHTML = data;
+        //startFadeInTimer();
+        })
+        .catch(error => {
+        console.error('Error loading poem content:', error);
+        });
 }
 
 function showPoem() {
-  fetch('../embeddings.json')
-  .then((response) => response.json())
-  .then((data) => {
-      embeddings = data;
-      setAvailableWords(); // Set the initial "available" words
+    fetch('../embeddings.json')
+    .then((response) => response.json())
+    .then((data) => {
+        embeddings = data;
+        setAvailableWords(); // Set the initial "available" words
 
-      // add events listeners for all title words
-      const titleWords = document.getElementsByClassName('title-word');
-      for (let i = 0; i < titleWords.length; i++) {
-          titleWords[i].addEventListener('click', showNextStanza);
-      }
-      document.addEventListener('scroll', setAvailableWords); 
-  });
+        // add events listeners for all title words
+        const titleWords = document.getElementsByClassName('title-word');
+        for (let i = 0; i < titleWords.length; i++) {
+            titleWords[i].addEventListener('click', showNextStanza);
+        }
+        document.addEventListener('scroll', setAvailableWords); 
+    });
 }
 
 function clean(word) {
@@ -108,6 +114,7 @@ function showNextStanza(event) {
                     element.classList.remove('available');
                 }
             })
+            poemDisplayed = true;
         }, 1000*time);
     }
 }
@@ -129,26 +136,54 @@ function setAvailableWords() {
         } 
     }
 }
-
 document.addEventListener('DOMContentLoaded', function () {
 
-  memoryPalaceButton.classList.add('active'); // Add the 'active' class to the memoryPalaceButton
-  loadPoemContent('poems/palace.html'); // Load the 'Memory Palace' poem by default
+    memoryPalaceButton.classList.add('active'); 
+    loadPoemContent('poems/palace.html'); 
 
-  memoryPalaceButton.addEventListener('click', () => {
-    loadPoemContent('poems/palace.html');
-    memoryPalaceButton.classList.add('active');
-    fauneButton.classList.remove('active');
+    memoryPalaceButton.addEventListener('click', () => {
+        loadPoemContent('poems/palace.html');
+        memoryPalaceButton.classList.add('active');
+        fauneButton.classList.remove('active');
+        poemDisplayed = false;
+        showPoem();
+    });
+
+    fauneButton.addEventListener('click', () => {
+        loadPoemContent('poems/faune.html');
+        fauneButton.classList.add('active');
+        memoryPalaceButton.classList.remove('active');
+        showPoem();
+        poemDisplayed = true;
+    });
     showPoem();
-  });
 
-  fauneButton.addEventListener('click', () => {
-    loadPoemContent('poems/faune.html');
-    fauneButton.classList.add('active');
-    memoryPalaceButton.classList.remove('active');
-    showPoem();
-  });
+});
 
-  showPoem();
 
+poemContainer.addEventListener("scroll", function () {
+    const windowHeight = window.innerHeight;
+    const poemHeight = poemContainer.scrollHeight;
+    const scrollThreshold = pageHeightThreshold * windowHeight;
+    console.log(poemContainer.scrollTop, scrollThreshold, poemDisplayed);
+
+    if (poemContainer.scrollTop > scrollThreshold && !poemDisplayed) {
+        banner.classList.add('show');
+    }
+    else {
+        banner.classList.remove('show');
+    }
+
+    if (poemContainer.scrollTop > 80 && poemContent.innerHTML.trim()) {
+        poetryButtons.style.transform = 'translateY(-100%)';
+    } else {
+        poetryButtons.style.transform = 'translateY(0)';
+    }
+
+    if (poemContainer.scrollTop > 80) {
+        poetryButtons.style.transform = 'translateY(-100%)';
+     }
+    else {
+        poetryButtons.style.transform = 'translateY(0)';
+    }
 });
