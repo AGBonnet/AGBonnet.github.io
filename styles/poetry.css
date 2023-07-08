@@ -1,4 +1,4 @@
-html, body {
+html {
   height: 100%;
 }
 
@@ -12,43 +12,32 @@ body {
 }
 
 .poetry-container {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-gap: 20px;
-  padding: 0;
   margin: auto; /* Set margin to auto to center horizontally */
   text-align: left;
   overflow-y: scroll;
   scroll-behavior: smooth;
   height: 100%;
-  max-width: 900px; /* Set a maximum width for the container */
-}
+  width: 60%;
 
-.poetry-container #poem-content {
-  width: 800px; /* Set the width to fill the container */
 }
 
 .poetry-container .stanza {
   margin-bottom: 40px;
-  margin-left: auto;
-  margin-right: auto;
-  grid-column: 4 / span 6;
 }
 
 .poetry-container .line {
   font-size: 22px;
-  margin: 10px 0;
+  margin: 5px 0;
   display: flex;
-  margin-left: 150px;
   line-height: 1.5;
-  grid-column: 2 / span 11; 
 }
 
 .poetry-container .line.title {
+  /* center horizontally */
   margin-left: 35%;
+  text-align: center;
   font-size: 30px;
   font-weight: bold;
-  grid-column: 1 / -1;
 }
 
 .poetry-container .word {

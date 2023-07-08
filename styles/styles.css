@@ -97,7 +97,7 @@ body {
   font-family: Averia;
 }
 
-#title #author {
+#author {
   font-family: Helvetica, Arial, sans-serif;
   font-weight: lighter;
 }
@@ -123,11 +123,9 @@ body {
     text-align: center;
     margin: 20px 0;
   }
-
   .title-line {
     font-size: 24px;
   }
-
   #subtitle {
     margin-top: 50%; 
   }
