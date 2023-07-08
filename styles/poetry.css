@@ -74,13 +74,16 @@ body {
 }
 
 @media (max-width: 768px) {
+  .poetry-container {
+    width: 100%;
+  }
   .poetry-container .line {
     font-size: 14px;
-    margin-left: 20px;
+    margin-left: 10%;
   }
 
   .poetry-container .line.title {
-    margin-left: 10px;
+    margin-left: 20%;
     font-size: 20px;
   }
 }
