@@ -3,13 +3,26 @@
 @font-face {
   font-family: 'Helvetica';
   src: url('fonts/Helvetica.ttf');
-  /* Add additional font formats here if available (e.g., woff, woff2) */
 }
 
 @font-face {
   font-family: 'Helvetica Light';
   src: url('fonts/Helvetica-Light.ttf');
-  /* Add additional font formats here if available (e.g., woff, woff2) */
+}
+
+@font-face {
+  font-family: 'Averia';
+  src: url('fonts/AveriaSerifLibre-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'AveriaItalic';
+  src: url('fonts/AveriaSerifLibre-Italic.ttf');
+}
+
+@font-face {
+  font-family: 'AveriaBold';
+  src: url('fonts/AveriaSerifLibre-Bold.ttf');
 }
 
 body {
