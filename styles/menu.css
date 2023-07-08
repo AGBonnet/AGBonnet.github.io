@@ -1,6 +1,6 @@
 .menu-toggle {
     position: fixed;
-    top: calc(50% - 20px); /* Adjust the value based on the button size */
+    top: calc(50% - 20px); 
     left: 10px;
     transform: translate(0);
     width: 36px;
@@ -25,6 +25,12 @@
     pointer-events: none; /* Disable pointer events on open state */
   }
   
+  @media (max-width: 768px) {
+    .menu-toggle {
+      top: 5%; 
+    }
+  }
+
   .menu-toggle::before {
     transform: translate(-50%, -50%) rotate(45deg);
   }
