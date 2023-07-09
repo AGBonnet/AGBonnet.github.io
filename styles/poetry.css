@@ -92,12 +92,12 @@ body {
     overflow-x: hidden;
   }
   .poetry-container .line {
-    font-size: 12px;
+    font-size: 14px;
     margin-left: 5%;
   }
   .poetry-container .line.title {
-    text-align: left;
-    margin-left: 5%;
+    text-align: center;
+    margin-left: 15%;
     font-size: 18px;
   }
   .poetry-container .line.subtitle {
@@ -109,7 +109,7 @@ body {
     margin-left: 0%;
   }
   .poetry-container .word {
-    margin-right: 4px;
+    margin-right: 0px;
   }
 }
 
