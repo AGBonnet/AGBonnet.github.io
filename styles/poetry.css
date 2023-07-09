@@ -27,7 +27,7 @@ body {
   width: 50%;
   align-content: center;
   margin-bottom: 40px;
-  margin-left: 20%;
+  margin-left: 25%;
 }
 
 .poetry-container .line {
@@ -39,7 +39,7 @@ body {
 }
 
 .poetry-container .line.title {
-  margin-left: 20%;
+  margin-left: 13%;
   text-align: center;
   font-size: 30px;
   font-weight: bold;
@@ -104,6 +104,8 @@ body {
     font-size: 16px;
   }
   .poetry-container .stanza {
+    width: 100%;
+    align-content: left;
     margin-left: 0%;
   }
   .poetry-container .word {
@@ -114,6 +116,9 @@ body {
 @media (max-width: 768px) {
   .poetry-container .stanza {
     margin-left: 0;
+  }
+  .poetry-container .line.title {
+    margin-left: 35%;
   }
 }
 
