@@ -22,6 +22,7 @@ let imageQueue = []; // Array to store the images
 let screenWidth = window.innerWidth;
 let screenHeight = window.innerHeight;
 let zoomedIn = false; // Add a new variable to track zoomed state
+let mobileZoomedIn = false;
 
 let mouseMoving = false;
 let lastMouseX = 0;
@@ -43,6 +44,7 @@ function calculateDistance(x1, y1, x2, y2) {
 
 function enterZoomMode(imageSrc) {
   zoomedIn = true;
+  mobileZoomedIn = true;
   zoomedContainer.style.display = 'flex';
   const image = new Image();
   image.src = imageSrc;
@@ -79,6 +81,7 @@ function enterZoomMode(imageSrc) {
 
 function exitZoomMode() {
   zoomedIn = false;
+  mobileZoomedIn = false;
   body.classList.remove('zoom-mode');
   zoomedContainer.classList.remove('active');
   zoomedContainer.style.display = 'none';
@@ -271,6 +274,11 @@ const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera
 if (isMobileDevice) {
   window.addEventListener('deviceorientation', debounce(handleDeviceOrientation, TimeDelay));
   window.addEventListener('deviceorientation', handleDeviceStop);
+  document.addEventListener('click', (event) => {
+    if (mobileZoomedIn && zoomedContainer.style.display !== 'none') {
+      exitZoomMode();
+    }
+  });
 }
 else {
   window.addEventListener('mousemove', debounce(handleMouseMove, TimeDelay));
