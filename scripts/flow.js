@@ -103,12 +103,24 @@ function handleDeviceOrientation(event) {
 
     if (!deviceRotating && !zoomedIn) {
       deviceRotating = true;
-      getRandomImage();
+
+      // Add a loop to call getRandomImage multiple times
+      const intervalId = setInterval(() => {
+        getRandomImage();
+      }, TimeDelay);
+
+      // Stop the loop after a certain duration
+      setTimeout(() => {
+        clearInterval(intervalId);
+        deviceRotating = false;
+      }, TimeDelay * maxImages); // Adjust the duration based on the desired number of images
+
     }
   } else {
     deviceRotating = false;
   }
 }
+
 
 function handleDeviceStop() {
   if (!title.classList.contains('fade-in')) {
