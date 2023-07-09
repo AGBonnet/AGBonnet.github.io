@@ -6,18 +6,16 @@ const fauneButton = document.getElementById('faune-aux-jumelles-button');
 const poemContent = document.getElementById('poem');
 let prevScrollPos = 0;
 const timeFade = 5;
-const pageHeightThreshold = 0.2; // Adjust this value to set the threshold for initial scrolling
 let poemDisplayed = false;
 let embeddings; 
 
 function loadPoemContent(url) {
-    prevScrollPos = 0; // Reset prevScrollPos when loading new content
-    poemContainer.scrollTop = 0; // Reset the scroll position to the top
+    prevScrollPos = 0; 
+    poemContainer.scrollTop = 0; 
     fetch(url)
         .then(response => response.text())
         .then(data => {
         poemContent.innerHTML = data;
-        //startFadeInTimer();
         })
         .catch(error => {
         console.error('Error loading poem content:', error);
@@ -160,30 +158,35 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
-
-poemContainer.addEventListener("scroll", function () {
+// Throttle function based on timestamps
+function throttle(func, delay) {
+    let lastCallTime = 0;
+    return function (...args) {
+      const currentTime = Date.now();
+      if (currentTime - lastCallTime >= delay) {
+        func.apply(this, args);
+        lastCallTime = currentTime;
+      }
+    };
+  }
+  
+  // Updated scroll event handler using throttle
+  const throttledScrollHandler = throttle(function () {
     const windowHeight = window.innerHeight;
-    const poemHeight = poemContainer.scrollHeight;
-    const scrollThreshold = pageHeightThreshold * windowHeight;
-    console.log(poemContainer.scrollTop, scrollThreshold, poemDisplayed);
-
+    const scrollThreshold = 0.2 * windowHeight;
+    const bannerThreshold = 0.15 * windowHeight;
+  
     if (poemContainer.scrollTop > scrollThreshold && !poemDisplayed) {
-        banner.classList.add('show');
-    }
-    else {
-        banner.classList.remove('show');
-    }
-
-    if (poemContainer.scrollTop > 80 && poemContent.innerHTML.trim()) {
-        poetryButtons.style.transform = 'translateY(-100%)';
+      banner.classList.add('show');
     } else {
-        poetryButtons.style.transform = 'translateY(0)';
+      banner.classList.remove('show');
     }
-
-    if (poemContainer.scrollTop > 80) {
-        poetryButtons.style.transform = 'translateY(-100%)';
-     }
-    else {
-        poetryButtons.style.transform = 'translateY(0)';
+  
+    if (poemContainer.scrollTop > bannerThreshold && poemContent.innerHTML.trim()) {
+      poetryButtons.style.transform = 'translateY(-100%)';
+    } else {
+      poetryButtons.style.transform = 'translateY(0)';
     }
-});
+  }, 100);
+  
+  poemContainer.addEventListener('scroll', throttledScrollHandler);
