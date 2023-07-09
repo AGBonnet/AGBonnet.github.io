@@ -16,11 +16,16 @@ body {
   overflow-y: scroll;
   scroll-behavior: smooth;
   height: 100%;
-  width: 60%;
-  margin-left: 20%;
+  width: 100%;
+  margin-left: 10%;
+  margin-right: 10%;
+  position: relative;
+  z-index: 1;
 }
 
 .poetry-container .stanza {
+  width: 50%;
+  align-content: center;
   margin-bottom: 40px;
   margin-left: 20%;
 }
@@ -49,7 +54,7 @@ body {
 .poetry-container .word {
   color: black;
   opacity: 0;
-  margin-right: 7px;
+  margin-right: 6px;
   transition: color 0.3s;
   transition: opacity 1s;
   cursor: default;
@@ -79,10 +84,11 @@ body {
 }
 
 
-@media (max-width: 592px) {
+@media (max-width: 480px) {
   .poetry-container {
     width: 100%;
-    margin-left: 0%;
+    margin-left: 0;
+    margin-right: 0;
     overflow-x: hidden;
   }
   .poetry-container .line {
@@ -105,29 +111,9 @@ body {
   }
 }
 
-
 @media (max-width: 768px) {
-  .poetry-container {
-    width: 100%;
-    margin-left: 0%;
-  }
-  .poetry-container .line {
-    font-size: 18px;
-    margin-left: 15%;
-  }
-  .poetry-container .line.title {
-    text-align: left;
-    margin-left: 25%;
-    font-size: 24px;
-  }
-  .poetry-container .line.subtitle {
-    font-size: 20px;
-  }
   .poetry-container .stanza {
-    margin-left: 0%;
-  }
-  .poetry-container .word {
-    margin-right: 4px;
+    margin-left: 0;
   }
 }
 
