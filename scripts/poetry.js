@@ -60,8 +60,9 @@ function dotProduct(a, b) {
 // Function to compute the appearance times for words in the next stanza
 function computeAppearanceTimes(root, words) {
     var rootEmbedding = embeddings[clean(root)];
-    if (rootEmbedding.every((val, i, arr) => val === 0)) {
-        root = Object.keys(embeddings)[Math.floor(Math.random()*Object.keys(embeddings).length)];
+    if ((rootEmbedding.slice(0, 50)).every((val, x, y) => val === 0)) {
+        const randIdx = Math.floor(Math.random()*Object.keys(embeddings).length);
+        root = Object.keys(embeddings)[randIdx];
         rootEmbedding = embeddings[clean(root)];
     }
     const times = {};

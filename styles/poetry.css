@@ -12,13 +12,12 @@ body {
 }
 
 .poetry-container {
-  margin: auto; /* Set margin to auto to center horizontally */
   text-align: left;
   overflow-y: scroll;
   scroll-behavior: smooth;
   height: 100%;
   width: 60%;
-
+  margin-left: 20%;
 }
 
 .poetry-container .stanza {
@@ -27,7 +26,7 @@ body {
 }
 
 .poetry-container .line {
-  font-size: 24px;
+  font-size: 20px;
   margin: 5px 0;
   display: flex;
   line-height: 1.5;
@@ -81,6 +80,7 @@ body {
 @media (max-width: 768px) {
   .poetry-container {
     width: 100%;
+    margin-left: 0%;
   }
   .poetry-container .line {
     font-size: 18px;
