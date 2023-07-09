@@ -8,7 +8,7 @@ body {
   padding: 0;
   background-color: white;
   color: #222;
-  height: 100%; /* Set the body height to fill the viewport vertically */
+  height: 100%; 
 }
 
 .poetry-container {
@@ -83,15 +83,16 @@ body {
     margin-left: 0%;
   }
   .poetry-container .line {
-    font-size: 18px;
-    margin-left: 10%;
+    font-size: 14px;
+    margin-left: 5%;
   }
   .poetry-container .line.title {
+    text-align: left;
     margin-left: 25%;
-    font-size: 22px;
+    font-size: 18px;
   }
   .poetry-container .line.subtitle {
-    font-size: 20px;
+    font-size: 16px;
   }
   .poetry-container .stanza {
     margin-left: 0%;
