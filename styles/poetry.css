@@ -27,24 +27,30 @@ body {
 }
 
 .poetry-container .line {
-  font-size: 22px;
+  font-size: 24px;
   margin: 5px 0;
   display: flex;
   line-height: 1.5;
 }
 
 .poetry-container .line.title {
-  /* center horizontally */
   margin-left: 20%;
   text-align: center;
   font-size: 30px;
   font-weight: bold;
 }
 
+
+.poetry-container .line.subtitle {
+  font-size: 24px;
+  margin-top: 40px;
+  font-weight: bold;
+}
+
 .poetry-container .word {
   color: black;
   opacity: 0;
-  margin-right: 7.5px;
+  margin-right: 7px;
   transition: color 0.3s;
   transition: opacity 1s;
   cursor: default;
@@ -78,13 +84,19 @@ body {
     width: 100%;
   }
   .poetry-container .line {
-    font-size: 14px;
+    font-size: 18px;
     margin-left: 10%;
   }
 
   .poetry-container .line.title {
-    margin-left: 20%;
+    margin-left: 25%;
     font-size: 20px;
+  }
+  .poetry-container .stanza {
+    margin-left: 0%;
+  }
+  .poetry-container .word {
+    margin-right: 4px;
   }
 }
 
@@ -99,13 +111,13 @@ body {
   align-items: center;
   padding: 20px;
   margin: 0;
-  background-color: #fff;
+  background-color: transparent;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 80px; 
-  z-index: 9999;
+  z-index: 1000;
   transition: transform 0.3s ease;
 }
 
@@ -113,7 +125,7 @@ body {
   font-family: 'Helvetica Light';
   font-size: 16px;
   font-weight: bold;
-  background-color: white;
+  background-color: transparent;
   border: none;
   color: lightgray;
   padding: 8px 16px;
@@ -158,7 +170,8 @@ body {
   left: 0;
   width: 100%;
   height: 80px;
-  background-color: white;
+  z-index: 9900;
+  background-color: transparent;
   display: flex;
   justify-content: center;
   align-items: center;
