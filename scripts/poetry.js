@@ -71,7 +71,7 @@ function computeAppearanceTimes(root, words) {
         try {
             const wordEmbedding = embeddings[clean(word)];
             const similarity = dotProduct(rootEmbedding, wordEmbedding);
-            const delay = Math.exp(-2*(similarity-1))
+            const delay = Math.exp(-1.5*(similarity-0.5))
             times[word] = delay;
         }
         catch (error) {
@@ -82,7 +82,7 @@ function computeAppearanceTimes(root, words) {
     const max_time = Math.max(...Object.values(times));
     const min_time = Math.min(...Object.values(times));
     for (let i = 0; i < unknown_words.length; i++) {
-        times[unknown_words[i]] = 0.8*max_time;
+        times[unknown_words[i]] = 0.75*max_time;
     }
 
     for (let word in times) {
