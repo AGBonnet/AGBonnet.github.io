@@ -5,7 +5,7 @@ const memoryPalaceButton = document.getElementById('memory-palace-button');
 const fauneButton = document.getElementById('faune-aux-jumelles-button');
 const poemContent = document.getElementById('poem');
 let prevScrollPos = 0;
-const timeFade = 5;
+const timeFade = 3;
 let poemDisplayed = false;
 let embeddings; 
 
@@ -65,29 +65,34 @@ function computeAppearanceTimes(root, words) {
         root = Object.keys(embeddings)[randIdx];
         rootEmbedding = embeddings[clean(root)];
     }
-    const times = {};
+    const similarities = {};
     unknown_words = [];
     for (let i = 0; i < words.length; i++) {
         const word = words[i].textContent;
         try {
             const wordEmbedding = embeddings[clean(word)];
             const similarity = dotProduct(rootEmbedding, wordEmbedding);
-            const delay = Math.exp(-1.5*(similarity-0.5))
-            times[word] = delay;
+            similarities[word] = 1-Math.abs(similarity);
         }
         catch (error) {
             unknown_words.push(word);
         }
     }
+    console.log(similarities)
     // Normalize the times
-    const max_time = Math.max(...Object.values(times));
-    const min_time = Math.min(...Object.values(times));
-    for (let i = 0; i < unknown_words.length; i++) {
-        times[unknown_words[i]] = 0.75*max_time;
+    const max_sim = Math.max(...Object.values(similarities));
+    const min_sim = Math.min(...Object.values(similarities));
+    console.log(max_sim, min_sim)
+    const times = {}
+    for (let word in similarities) {
+        times[word] = timeFade * (similarities[word] - min_sim) / (max_sim - min_sim);
     }
-
-    for (let word in times) {
-        times[word] = timeFade * (0.3+times[word] - min_time) / max_time;
+    console.log(times)
+    const maxTime = Math.max(...Object.values(times));
+    const minTime = Math.min(...Object.values(times));
+    console.log(maxTime, minTime)
+    for (let i = 0; i < unknown_words.length; i++) {
+        times[unknown_words[i]] = 0.75*maxTime;
     }
     return times;
 }
