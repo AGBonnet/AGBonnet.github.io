@@ -83,6 +83,14 @@ body {
   transition: color 0.3s;
 }
 
+@media (max-width: 768px) {
+  .poetry-container .stanza {
+    margin-left: 0;
+  }
+  .poetry-container .line.title {
+    margin-left: 33%;
+  }
+}
 
 @media (max-width: 480px) {
   .poetry-container {
@@ -114,15 +122,6 @@ body {
   }
   .poetry-container .word {
     margin-right: 3px;
-  }
-}
-
-@media (max-width: 768px) {
-  .poetry-container .stanza {
-    margin-left: 0;
-  }
-  .poetry-container .line.title {
-    margin-left: 35%;
   }
 }
 
