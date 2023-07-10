@@ -94,7 +94,8 @@ body {
   }
   .poetry-container .line.title {
     margin-top: 120px;
-    margin-left: 150px;
+    margin-left: 80px;
+    display: block;
     text-align: left;
     font-size: 22px;
   }
