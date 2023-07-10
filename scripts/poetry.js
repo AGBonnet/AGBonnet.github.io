@@ -78,19 +78,13 @@ function computeAppearanceTimes(root, words) {
             unknown_words.push(word);
         }
     }
-    console.log(similarities)
-    // Normalize the times
     const max_sim = Math.max(...Object.values(similarities));
     const min_sim = Math.min(...Object.values(similarities));
-    console.log(max_sim, min_sim)
     const times = {}
     for (let word in similarities) {
         times[word] = timeFade * (similarities[word] - min_sim) / (max_sim - min_sim);
     }
-    console.log(times)
     const maxTime = Math.max(...Object.values(times));
-    const minTime = Math.min(...Object.values(times));
-    console.log(maxTime, minTime)
     for (let i = 0; i < unknown_words.length; i++) {
         times[unknown_words[i]] = 0.75*maxTime;
     }
