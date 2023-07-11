@@ -1,28 +1,18 @@
 
-// ---------------- Variables ---------------- //
+// ---------------- DOM Elements ---------------- //
 
-const visualFlowDirectory = 'VisualFlow/';
-const numImages = 358;        // Adjust the number based on the total number of images in the directory
-const maxImages = 20;         // Maximum number of images to be added at the same time
-const mouseSensitivity = 20;  // Adjust the threshold for mouse movement sensitivity
-const touchSensitivity = 5;   // Adjust the threshold for scrolling sensitivity
-const timeDelay = 8;          // Adjust the delay between each image addition
-const timeDelayMobile = 4;    // For mobile device
-const imageFadeDuration = 100;// Adjust the fade duration as needed (in milliseconds)
-
+const body = document.body;
 const artInspiration = document.querySelector('.art-inspirations');
 const title = document.getElementById('title');
 const subTitle = document.getElementById('subtitle');
-const body = document.body;
-
-// Declare the zoomed container and zoomed image variables
 const zoomedContainer = document.getElementById('zoomed-container');
 const zoomedSvg = document.getElementById('zoomed-svg');
 
-let imageQueue = []; // Array to store the images
+// ---------------- Variables ---------------- //
+let imageQueue = []; 
+let zoomedIn = false; 
 let screenWidth = window.innerWidth;
 let screenHeight = window.innerHeight;
-let zoomedIn = false; // Add a new variable to track zoomed state
 
 let mouseMoving = false;
 let lastMouseX = 0;
@@ -33,14 +23,18 @@ let lastTouchX = 0;
 let lastTouchY = 0;
 
 
+// ---------------- Constants ---------------- //
+
+const visualFlowDirectory = 'VisualFlow/';
+const numImages = 234;        // Adjust the number based on the total number of images in the directory
+const maxImages = 20;         // Maximum number of images to be added at the same time
+const mouseSensitivity = 20;  // Adjust the threshold for mouse movement sensitivity
+const touchSensitivity = 5;   // Adjust the threshold for scrolling sensitivity
+const timeDelay = 8;          // Adjust the delay between each image addition
+const timeDelayMobile = 4;    // For mobile device
+const imageFadeDuration = 100;// Adjust the fade duration as needed (in milliseconds)
 const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-console.log('isMobileDevice', isMobileDevice)
 
-// ---------------- Functions ---------------- //
-
-function calculateDistance(x1, y1, x2, y2) {
-  return Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
-}
 
 // -------------- Zooming Functions -------------- //
 
@@ -198,6 +192,10 @@ function getRandomImage() {
 }
 
 // -------------- Mouse Functions -------------- //
+
+function calculateDistance(x1, y1, x2, y2) {
+  return Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
+}
 
 function handleTouchMove(event) {
   const touchX = event.touches[0].clientX;
