@@ -170,23 +170,23 @@ function throttle(func, delay) {
     };
   }
   
-  // Updated scroll event handler using throttle
-  const throttledScrollHandler = throttle(function () {
-    const windowHeight = window.innerHeight;
-    const scrollThreshold = 0.2 * windowHeight;
-    const bannerThreshold = 0.15 * windowHeight;
-  
-    if (poemContainer.scrollTop > scrollThreshold && !poemDisplayed) {
-      banner.classList.add('show');
-    } else {
-      banner.classList.remove('show');
-    }
-  
-    if (poemContainer.scrollTop > bannerThreshold && poemContent.innerHTML.trim()) {
-      poetryButtons.style.transform = 'translateY(-100%)';
-    } else {
-      poetryButtons.style.transform = 'translateY(0)';
-    }
-  }, 100);
-  
-  poemContainer.addEventListener('scroll', throttledScrollHandler);
+// Updated scroll event handler using throttle
+const throttledScrollHandler = throttle(function () {
+const windowHeight = window.innerHeight;
+const scrollThreshold = 0.2 * windowHeight;
+const bannerThreshold = 0.15 * windowHeight;
+
+if (poemContainer.scrollTop > scrollThreshold && !poemDisplayed) {
+    banner.classList.add('show');
+} else {
+    banner.classList.remove('show');
+}
+
+if (poemContainer.scrollTop > bannerThreshold && poemContent.innerHTML.trim()) {
+    poetryButtons.style.transform = 'translateY(-100%)';
+} else {
+    poetryButtons.style.transform = 'translateY(0)';
+}
+}, 100);
+
+poemContainer.addEventListener('scroll', throttledScrollHandler);

@@ -5,7 +5,7 @@ const visualFlowDirectory = 'VisualFlow/';
 const numImages = 358; // Adjust the number based on the total number of images in the directory
 const maxImages = 20; // Maximum number of images to be added at the same time
 const mouseSensitivity = 20; // Adjust the threshold for mouse movement sensitivity
-const rotationSensitivity = 3; // Adjust the threshold for device rotation sensitivity
+const touchSensitivity = 10; // Adjust the threshold for scrolling sensitivity
 const TimeDelay = 8; // Adjust the delay between each image addition
 const imageFadeDuration = 100; // Adjust the fade duration as needed (in milliseconds)
 
@@ -27,11 +27,13 @@ let mouseMoving = false;
 let lastMouseX = 0;
 let lastMouseY = 0;
 
-let deviceRotating = false;
-let lastDeviceGamma = 0;
-let lastDeviceBeta = 0;
+let touchMoving = false;
+let lastTouchX = 0;
+let lastTouchY = 0;
 
 
+const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+console.log('isMobileDevice', isMobileDevice)
 
 // ---------------- Functions ---------------- //
 
@@ -83,47 +85,6 @@ function exitZoomMode() {
   zoomedContainer.style.display = 'none';
   zoomedSvg.innerHTML = ''; // Clear the SVG content
 }
-
-// Mobile phone --> Add images on device rotation
-
-function handleDeviceOrientation(event) {
-  const deviceGamma = event.gamma;
-  const deviceBeta = event.beta;
-
-  const gammaDistance = Math.abs(lastDeviceGamma - deviceGamma);
-  const betaDistance = Math.abs(lastDeviceBeta - deviceBeta);
-
-  if ((gammaDistance >= rotationSensitivity || betaDistance >= rotationSensitivity) && subTitle.classList.contains('clicked')) {
-    lastDeviceGamma = deviceGamma;
-    lastDeviceBeta = deviceBeta;
-
-    if (!deviceRotating && !zoomedIn) {
-      deviceRotating = true;
-
-      // Add a loop to call getRandomImage multiple times
-      const intervalId = setInterval(() => {
-        getRandomImage();
-      }, TimeDelay);
-
-      // Stop the loop after a certain duration
-      setTimeout(() => {
-        clearInterval(intervalId);
-        deviceRotating = false;
-      }, TimeDelay * maxImages); // Adjust the duration based on the desired number of images
-
-    }
-  } else {
-    deviceRotating = false;
-  }
-}
-
-
-function handleDeviceStop() {
-  if (!title.classList.contains('fade-in')) {
-    deviceRotating = false;
-  }
-}
-
 
 
 // -------------- Image Functions -------------- //
@@ -237,6 +198,31 @@ function getRandomImage() {
 
 // -------------- Mouse Functions -------------- //
 
+function handleTouchMove(event) {
+  const touchX = event.touches[0].clientX;
+  const touchY = event.touches[0].clientY;
+
+  const distance = calculateDistance(lastTouchX, lastTouchY, touchX, touchY);
+
+  if (distance >= touchSensitivity && subTitle.classList.contains('clicked')) {
+    lastTouchX = touchX;
+    lastTouchY = touchY;
+
+    if (!touchMoving && !zoomedIn) {
+      touchMoving = true;
+      getRandomImage();
+    }
+  } else {
+    touchMoving = false;
+  }
+}
+
+function handleTouchStop() {
+  if (!title.classList.contains('fade-in')) {
+    touchMoving = false;
+  }
+}
+
 function handleMouseMove(event) {
   const mouseX = event.clientX;
   const mouseY = event.clientY;
@@ -277,38 +263,6 @@ function fadeOutTitle() {
 
 // ----------------- Event Listeners ----------------- //
 
-const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-
-if (isMobileDevice) {
-  window.addEventListener('deviceorientation', debounce(handleDeviceOrientation, TimeDelay));
-  window.addEventListener('deviceorientation', handleDeviceStop);
-  document.addEventListener('click', (event) => {
-    if (zoomedIn && (event.target === zoomedSvg || event.target === zoomedContainer)) {
-      exitZoomMode();
-    }
-  });
-}
-else {
-  window.addEventListener('mousemove', debounce(handleMouseMove, TimeDelay));
-  window.addEventListener('mouseout', handleMouseStop);
-  window.addEventListener('blur', handleMouseStop);
-  window.addEventListener('click', (event) => {
-    if (zoomedIn && (event.target === zoomedSvg || event.target === zoomedContainer)) {
-      exitZoomMode();
-    }
-  });
-}
-
-// Click event for subtitle
-subTitle.addEventListener('click', () => {
-  subTitle.classList.add('clicked');
-  fadeOutTitle();
-  setTimeout(() => {
-    subTitle.style.opacity = 1;
-    getRandomImage(); // Add the first image after the subtitle is clicked
-  }, 1000);
-});
-
 // Debounce function to limit the frequency of event handling
 function debounce(callback, delay) {
   let timerId;
@@ -319,4 +273,33 @@ function debounce(callback, delay) {
     }, delay);
   };
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+  
+  if (isMobileDevice) {
+    window.addEventListener('touchmove', debounce(handleTouchMove, TimeDelay));
+    window.addEventListener('touchend', handleTouchStop);
+    window.addEventListener('touchcancel', handleTouchStop);
+  }
+  else {
+    window.addEventListener('mousemove', debounce(handleMouseMove, TimeDelay));
+    window.addEventListener('mouseout', handleMouseStop);
+    window.addEventListener('blur', handleMouseStop);
+  }
+  document.addEventListener('click', (event) => {
+    if (zoomedIn && (event.target === zoomedSvg || event.target === zoomedContainer)) {
+      exitZoomMode();
+    }
+  });
+
+  // Click event for subtitle
+  subTitle.addEventListener('click', () => {
+    subTitle.classList.add('clicked');
+    fadeOutTitle();
+    setTimeout(() => {
+      subTitle.style.opacity = 1;
+      getRandomImage(); // Add the first image after the subtitle is clicked
+    }, 1000);
+  });
+});
 
