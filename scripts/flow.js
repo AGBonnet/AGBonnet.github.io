@@ -2,12 +2,13 @@
 // ---------------- Variables ---------------- //
 
 const visualFlowDirectory = 'VisualFlow/';
-const numImages = 358; // Adjust the number based on the total number of images in the directory
-const maxImages = 20; // Maximum number of images to be added at the same time
-const mouseSensitivity = 20; // Adjust the threshold for mouse movement sensitivity
-const touchSensitivity = 10; // Adjust the threshold for scrolling sensitivity
-const TimeDelay = 8; // Adjust the delay between each image addition
-const imageFadeDuration = 100; // Adjust the fade duration as needed (in milliseconds)
+const numImages = 358;        // Adjust the number based on the total number of images in the directory
+const maxImages = 20;         // Maximum number of images to be added at the same time
+const mouseSensitivity = 20;  // Adjust the threshold for mouse movement sensitivity
+const touchSensitivity = 5;   // Adjust the threshold for scrolling sensitivity
+const timeDelay = 8;          // Adjust the delay between each image addition
+const timeDelayMobile = 4;    // For mobile device
+const imageFadeDuration = 100;// Adjust the fade duration as needed (in milliseconds)
 
 const artInspiration = document.querySelector('.art-inspirations');
 const title = document.getElementById('title');
@@ -277,12 +278,12 @@ function debounce(callback, delay) {
 document.addEventListener('DOMContentLoaded', function () {
   
   if (isMobileDevice) {
-    window.addEventListener('touchmove', debounce(handleTouchMove, TimeDelay));
+    window.addEventListener('touchmove', debounce(handleTouchMove, timeDelayMobile));
     window.addEventListener('touchend', handleTouchStop);
     window.addEventListener('touchcancel', handleTouchStop);
   }
   else {
-    window.addEventListener('mousemove', debounce(handleMouseMove, TimeDelay));
+    window.addEventListener('mousemove', debounce(handleMouseMove, timeDelay));
     window.addEventListener('mouseout', handleMouseStop);
     window.addEventListener('blur', handleMouseStop);
   }
