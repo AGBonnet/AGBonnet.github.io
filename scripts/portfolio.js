@@ -2,8 +2,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const imageContainers = document.querySelectorAll('.image-container');
     const overlay = document.querySelector('.overlay');
     const zoomedImage = document.querySelector('.zoomed-image');
-    const closeButton = document.querySelector('.close-button');
-    const body = document.querySelector('body');
 
     // Function to open the overlay and display the clicked image
     function openOverlay(imageSrc) {
@@ -15,7 +13,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // Function to close the overlay
     function closeOverlay() {
         overlay.classList.remove('active');
-        // Reset cursor to default
         overlay.style.cursor = 'default';
     }
   
@@ -31,11 +28,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 openOverlay(imageSrc);
             });
         }
-    });
-  
-    // Close overlay when the close button is clicked
-    closeButton.addEventListener('click', () => {
-        closeOverlay();
     });
   
     // Close overlay when clicking outside the zoomed image

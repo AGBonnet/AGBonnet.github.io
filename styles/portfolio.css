@@ -69,14 +69,3 @@ body, ul {
     max-width: 90%;
     max-height: 90%;
   }
-  
-  /* Close button for the overlay */
-  .close-button {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    color: black;
-    font-size: 20px;
-    cursor: pointer;
-  }
-  
