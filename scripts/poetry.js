@@ -172,21 +172,39 @@ function throttle(func, delay) {
   
 // Updated scroll event handler using throttle
 const throttledScrollHandler = throttle(function () {
-const windowHeight = window.innerHeight;
-const scrollThreshold = 0.2 * windowHeight;
-const bannerThreshold = 0.15 * windowHeight;
+    const windowHeight = window.innerHeight;
+    const scrollThreshold = 0.2 * windowHeight;
+    const bannerThreshold = 0.15 * windowHeight;
 
-if (poemContainer.scrollTop > scrollThreshold && !poemDisplayed) {
-    banner.classList.add('show');
-} else {
-    banner.classList.remove('show');
-}
+    // If poem is not displayed and user scrolls past threshold, show banner
+    if (poemContainer.scrollTop > scrollThreshold && !poemDisplayed) {
+        banner.classList.add('show');
+    } else {
+        banner.classList.remove('show');
+    }
 
-if (poemContainer.scrollTop > bannerThreshold && poemContent.innerHTML.trim()) {
-    poetryButtons.style.transform = 'translateY(-100%)';
-} else {
-    poetryButtons.style.transform = 'translateY(0)';
-}
+    // If user scrolls past banner threshold, hide poetry buttons
+    if (poemContainer.scrollTop > bannerThreshold && poemContent.innerHTML.trim()) {
+        poetryButtons.style.transform = 'translateY(-100%)';
+    } else {
+        poetryButtons.style.transform = 'translateY(0)';
+    }
+
+    /* If poem is displayed, and the user scrolls past the last displayed stanza, 
+    choose a random root word from displayed words and show the next words */
+    if (poemDisplayed) {
+        const visibleWords = Array.from(document.getElementsByClassName('visible'));
+        const bottoms = visibleWords.map(word => word.getBoundingClientRect().bottom);
+        const max_bottom = Math.max(...bottoms);
+        const isPast = max_bottom < 50;
+        if (isPast) {
+            const visibleWordsFiltered = visibleWords.filter(word => word.textContent.length > 3);
+            const randIdx = Math.floor(Math.random()*visibleWordsFiltered.length);
+            const randWord = visibleWordsFiltered[randIdx];
+            randWord.dispatchEvent(new Event('click'));
+        }
+    }
+
 }, 100);
 
 poemContainer.addEventListener('scroll', throttledScrollHandler);

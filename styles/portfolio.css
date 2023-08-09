@@ -1,0 +1,82 @@
+/* Reset some default styles */
+body, ul {
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Style for the gallery */
+  /* Make it centered, fit 90% of the screen width */
+  .gallery {
+    display: grid;
+    margin: 0 auto;
+    width: 90%;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns with equal width */
+    gap: 10px; /* Padding between images */
+    padding: 10px; /* Padding around the whole gallery */
+    /* Allow vertical scrolling within the gallery */
+    max-height: calc(100vh - 40px); /* Adjust 40px as needed for padding and margins */
+    overflow-y: scroll; /* Enable scrolling */
+    scrollbar-width: none; /* Hide the scrollbar */
+    -ms-overflow-style: none; /* Hide the scrollbar in Internet Explorer and Edge */
+}
+.gallery::-webkit-scrollbar {
+    width: 0; /* Set the width of the scrollbar to 0 */
+    height: 0; /* Set the height of the scrollbar to 0 */
+}
+
+  /* Style for the image containers */
+  .image-container {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  
+  /* Style for the images */
+  .image-container img {
+    max-width: 100%;
+    height: auto;
+    transition: transform 0.3s ease;
+    /* add vertical padding: 20px*/
+    padding: 10px;
+  }
+  
+  /* Slight fading animation on hover */
+  .image-container:hover img {
+      /* Slight fading animation on hover */
+      transform: filter(contrast(1.2));
+  }
+  
+  /* Full-screen overlay for zoomed image */
+  .overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+  }
+  
+  .overlay.active {
+    display: flex;
+  }
+  
+  /* Zoomed image inside overlay */
+  .zoomed-image {
+    max-width: 90%;
+    max-height: 90%;
+  }
+  
+  /* Close button for the overlay */
+  .close-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    color: black;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
