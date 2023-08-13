@@ -9,7 +9,7 @@ body, ul {
   margin: 0 auto;
   width: 90%;
   grid-template-columns: repeat(2, 1fr); /* 2 columns with equal width */
-  gap: 10px;
+  gap: 20px;
   padding: 10px;
   overflow-y: scroll;
   scrollbar-width: none;
@@ -112,7 +112,10 @@ body, ul {
 }
 
 .portfolio-title {
-  width: 50%;
+  display: inline-block;
+  width: auto;
+  text-align: left;
+  max-width: 100%;
   font-size: 24px;
   font-weight: bold; 
   padding-bottom: 10px;
@@ -125,6 +128,10 @@ body, ul {
 .portfolio-description {
   font-size: 16px;
 }
+.portfolio-credits {
+  font-family: 'HelveticaNeue-Light';
+  font-size: 16px;
+}
 
 .portfolio-excerpt {
   display: block;
@@ -132,7 +139,7 @@ body, ul {
   margin-left: 20%;
   margin-top: 0;
   margin-bottom: 0;
-  font-size: 24px;
+  font-size: 20px;
   font-family: 'Averia';
   text-align: left;
   line-height: 1.5;
