@@ -7,12 +7,13 @@ const title = document.getElementById('title');
 const subTitle = document.getElementById('subtitle');
 const zoomedContainer = document.getElementById('zoomed-container');
 const zoomedSvg = document.getElementById('zoomed-svg');
+const headerMenu = document.querySelector('.header-menu');
+let headerMenuHidden = false;
+let buttonClicked = false;
 
 // ---------------- Variables ---------------- //
 let imageQueue = []; 
 let zoomedIn = false; 
-let screenWidth = window.innerWidth;
-let screenHeight = window.innerHeight;
 
 let mouseMoving = false;
 let lastMouseX = 0;
@@ -25,16 +26,16 @@ let lastTouchY = 0;
 
 // ---------------- Constants ---------------- //
 
-const visualFlowDirectory = 'VisualFlow/';
-const numImages = 234;        // Adjust the number based on the total number of images in the directory
-const maxImages = 20;         // Maximum number of images to be added at the same time
-const mouseSensitivity = 20;  // Adjust the threshold for mouse movement sensitivity
+const visualFlowDirectory = '/VisualFlow/';
+//const numImages = 234;        // Adjust the number based on the total number of images in the directory
+const maxImages = 25;         // Maximum number of images to be added at the same time
+const mouseSensitivity = 40;  // Adjust the threshold for mouse movement sensitivity
 const touchSensitivity = 5;   // Adjust the threshold for scrolling sensitivity
 const timeDelay = 8;          // Adjust the delay between each image addition
 const timeDelayMobile = 4;    // For mobile device
 const imageFadeDuration = 100;// Adjust the fade duration as needed (in milliseconds)
 const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-
+const headerThreshold = 120;  // Adjust the threshold for header menu visibility
 
 // -------------- Zooming Functions -------------- //
 
@@ -47,8 +48,8 @@ function enterZoomMode(imageSrc) {
 
     // Fit image to 80% of the screen, while keeping the aspect ratio
     const imageRatio = image.width / image.height;
-    const screenWidth = window.innerWidth;
-    const screenHeight = window.innerHeight;
+    let screenWidth = window.innerWidth;
+    let screenHeight = window.innerHeight;
     const screenRatio = screenWidth / screenHeight;
     let imageWidth;
     let imageHeight;
@@ -85,12 +86,11 @@ function exitZoomMode() {
 // -------------- Image Functions -------------- //
 
 function fetchAvailableImages() {
-  return fetch('images.json')
+  return fetch('/images.json')
     .then(response => response.json())
     .then(data => {
       const images = data.images;
       const currentImages = Array.from(artInspiration.querySelectorAll('.added-image'));
-
       return images.filter(image => {
         const imageSrc = visualFlowDirectory + image;
         return !currentImages.some(currentImage => currentImage.getAttribute('src') === imageSrc);
@@ -110,6 +110,8 @@ function addNewImage(randomImage) {
   newImage.style.position = 'absolute';
   newImage.style.transition = `opacity ${imageFadeDuration / 1000}s ease-in-out`;
 
+  let screenWidth = window.innerWidth;
+  let screenHeight = window.innerHeight;
   const imagePercentage = Math.random() * 0.2 + 0.2;
   const imageWidth = Math.floor(imagePercentage * screenWidth);
   const imageHeight = Math.floor(imagePercentage * screenHeight);
@@ -191,6 +193,23 @@ function getRandomImage() {
   });
 }
 
+// ---------------- Header Menu Functions ---------------- //
+
+// Function to hide the header menu
+function hideHeaderMenu() {
+  console.log('hideHeaderMenu')
+  headerMenu.classList.add('hidden');
+  headerMenuHidden = true;
+}
+
+// Function to show the header menu
+function showHeaderMenu() {
+  console.log('showHeaderMenu')
+  // Add active class to header menu
+  headerMenu.classList.remove('hidden');
+  headerMenuHidden = false;
+}
+
 // -------------- Mouse Functions -------------- //
 
 function calculateDistance(x1, y1, x2, y2) {
@@ -226,6 +245,17 @@ function handleMouseMove(event) {
   const mouseX = event.clientX;
   const mouseY = event.clientY;
 
+
+  // Show/hide header menu on mouse move
+  if (buttonClicked) {
+    if (mouseY <= headerThreshold && headerMenuHidden) {
+      showHeaderMenu();
+    } else if (mouseY > headerThreshold && !headerMenuHidden) {
+      hideHeaderMenu();
+    }
+  }
+
+  // Add random images
   const distance = calculateDistance(lastMouseX, lastMouseY, mouseX, mouseY);
 
   if (distance >= mouseSensitivity && subTitle.classList.contains('clicked')) {
@@ -251,9 +281,9 @@ function handleMouseStop() {
 
 function fadeOutTitle() {
   if (subTitle.classList.contains('clicked')) {
+    hideHeaderMenu();
     title.classList.remove('fade-in');
     title.classList.add('fade-out');
-    // Wait 3 seconds then add faded-out class
     setTimeout(() => {
       title.classList.add('faded-out');
     }, 1000);
@@ -274,7 +304,8 @@ function debounce(callback, delay) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-  
+  showHeaderMenu();
+
   if (isMobileDevice) {
     window.addEventListener('touchmove', debounce(handleTouchMove, timeDelayMobile));
     window.addEventListener('touchend', handleTouchStop);
@@ -293,6 +324,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Click event for subtitle
   subTitle.addEventListener('click', () => {
+    buttonClicked = true;
+    hideHeaderMenu();
     subTitle.classList.add('clicked');
     fadeOutTitle();
     setTimeout(() => {

@@ -1,71 +1,159 @@
-/* Reset some default styles */
+
 body, ul {
     margin: 0;
     padding: 0;
   }
-  
-  /* Style for the gallery */
-  /* Make it centered, fit 90% of the screen width */
-  .gallery {
-    display: grid;
-    margin: 0 auto;
-    width: 90%;
-    grid-template-columns: repeat(2, 1fr); /* 2 columns with equal width */
-    gap: 10px; /* Padding between images */
-    padding: 10px; /* Padding around the whole gallery */
-    /* Allow vertical scrolling within the gallery */
-    max-height: calc(100vh - 40px); /* Adjust 40px as needed for padding and margins */
-    overflow-y: scroll; /* Enable scrolling */
-    scrollbar-width: none; /* Hide the scrollbar */
-    -ms-overflow-style: none; /* Hide the scrollbar in Internet Explorer and Edge */
-}
-.gallery::-webkit-scrollbar {
-    width: 0; /* Set the width of the scrollbar to 0 */
-    height: 0; /* Set the height of the scrollbar to 0 */
+
+.gallery {
+  display: grid;
+  margin: 0 auto;
+  width: 90%;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns with equal width */
+  gap: 10px;
+  padding: 10px;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
-  /* Style for the image containers */
-  .image-container {
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
+/* Hide the scrollbar */
+.gallery::-webkit-scrollbar {
+    width: 0; 
+    height: 0; 
+}
+
+/* Style for the project title */
+.project-title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  text-align: center;
+  transform: translate(-50%, -50%);
+  opacity: 0; 
+  color: white;
+  font-size: 30px;
+  font-family: 'Helvetica';
+  font-weight: bold; 
+  padding: 10px;
+  border-radius: 5px;
+  transition: opacity 0.3s ease;
+  width: 80%;
+  text-shadow: 0 0 2px white;
+}
+
+/* Style for the image containers */
+.image-container, .image-column, .image-container-link, .portfolio-infobox {
+  position: relative;
+  overflow: hidden;
+}
+
+.image-container, .image-container-link {
+  cursor: pointer;
+}
+
+/* Style for the images */
+.image-container img, .image-container-link img {
+  max-width: 100%;
+  height: auto;
+  transition: transform 0.3s ease, opacity 0.3s ease; 
+  padding: 10px;
+  opacity: 1; 
+  background-color: transparent;
+} 
+
+/* Slightly fade in image on hover */
+.image-container-link:hover img {
+  opacity: 0.85; 
+}
+
+/* Fade in project title on hover */
+.image-container-link:hover .project-title {
+  opacity: 1;
+}
+
+/* Full-screen overlay for zoomed image */
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.overlay.active {
+  display: flex;
+}
+
+/* Zoomed image inside overlay */
+.zoomed-image {
+  max-width: 90%;
+  max-height: 90%;
+}
+
+.portfolio-infobox {
+  margin-top: 0;
+  margin-bottom: 5%;
+  padding: 10px;
+  width: 100%;
+  font-weight: 200;
+  text-align: left;
+  font-family: 'HelveticaNeue';
+}
+
+.portfolio-infobox a {
+  text-decoration: underline;
+  font-weight: 300;
+  color: #000;
+}
+
+.portfolio-title {
+  width: 50%;
+  font-size: 24px;
+  font-weight: bold; 
+  padding-bottom: 10px;
+}
+
+.portfolio-title:hover {
+  cursor: pointer;
+}
+
+.portfolio-description {
+  font-size: 16px;
+}
+
+.portfolio-excerpt {
+  display: block;
+  width: 60%;
+  margin-left: 20%;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 24px;
+  font-family: 'Averia';
+  text-align: left;
+  line-height: 1.5;
+  transition: margin 0.5s ease, opacity 1s ease, max-height 0.5s ease; /* Update transition properties */
+  max-height: 0; /* Start with zero height to hide the excerpt */
+  overflow: hidden;
+  opacity: 0;
+}
+
+.portfolio-infobox.open .portfolio-excerpt {
+  margin-top: 15%; 
+  margin-bottom: 15%;
+  max-height: 500px; 
+  opacity: 1;
+}
+
+
+@media (max-width: 480px) {
+
+  .project-title {
+    font-size: 20px;
   }
   
-  /* Style for the images */
-  .image-container img {
-    max-width: 100%;
-    height: auto;
-    transition: transform 0.3s ease;
-    /* add vertical padding: 20px*/
-    padding: 10px;
-  }
-  
-  /* Slight fading animation on hover */
-  .image-container:hover img {
-      /* Slight fading animation on hover */
-      transform: filter(contrast(1.2));
-  }
-  
-  /* Full-screen overlay for zoomed image */
-  .overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: white;
-    justify-content: center;
-    align-items: center;
-    z-index: 1;
-  }
-  
-  .overlay.active {
-    display: flex;
-  }
-  
-  /* Zoomed image inside overlay */
-  .zoomed-image {
-    max-width: 90%;
-    max-height: 90%;
-  }
+}

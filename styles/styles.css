@@ -1,54 +1,59 @@
 /* ------ Elements ------- */
 
 @font-face {
+  font-family: 'ProximaNova';
+  src: url('/styles/fonts/Proxima\ Nova\ Regular.ttf');
+}
+
+@font-face {
+  font-family: 'ProximaNovaSemiBold';
+  src: url('/styles/fonts/Proxima\ Nova\ Semibold.ttf');
+}
+
+@font-face {
+  font-family: 'ProximaNovaBold';
+  src: url('/styles/fonts/Proxima\ Nova\ Extrabold.ttf');
+}
+
+@font-face {
+  font-family: 'ProximaNovaLight';
+  src: url('/styles/fonts/Proxima\ Nova\ Light.ttf');
+}
+
+@font-face {
   font-family: 'Helvetica';
-  src: url('fonts/Helvetica.ttf');
+  src: url('/styles/fonts/Helvetica.ttf');
 }
 
 @font-face {
   font-family: 'Helvetica Light';
-  src: url('fonts/Helvetica-Light.ttf');
+  src: url('/styles/fonts/Helvetica-Light.ttf');
 }
 
 @font-face {
   font-family: 'Averia';
-  src: url('fonts/AveriaSerifLibre-Regular.ttf');
+  src: url('/styles/fonts/AveriaSerifLibre-Regular.ttf');
 }
 
 @font-face {
   font-family: 'AveriaItalic';
-  src: url('fonts/AveriaSerifLibre-Italic.ttf');
+  src: url('/styles/fonts/AveriaSerifLibre-Italic.ttf');
 }
 
 @font-face {
   font-family: 'AveriaBold';
-  src: url('fonts/AveriaSerifLibre-Bold.ttf');
+  src: url('/styles/fonts/AveriaSerifLibre-Bold.ttf');
 }
 
-body {
+body{
   margin: 0;
   padding: 0;
-  overflow: hidden;
 }
 
-
-.art-inspirations {
-  height: calc(100vh - 40px); /* Subtract the height of the header menu */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: white;
-  overflow: hidden;
-}
-
-.added-image {
-  position: absolute;
-  object-fit: cover;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
+.content-container {
+  opacity: 0;
+  /* fade in content */
+  animation: fadeIn 1s forwards;
 }
 
 /* ------ Animations ------- */
@@ -87,23 +92,23 @@ body {
 /* ------ Welcome Screen ------- */
 
 #title {
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: 'ProximaNovaBold';
   text-align: center;
   font-size: 20px;
+  margin-top: -200px;
 }
 
 #title h3 {
   font-weight: bold;
-  font-family: Averia;
 }
 
 #author {
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: 'ProximaNova';
   font-weight: lighter;
 }
 
 #subtitle {
-  font-family: 'Helvetica Light', Arial, sans-serif;
+  font-family: 'ProximaNovaLight';
   font-size: 18px;
   cursor: pointer;
   font-weight: 100;
@@ -132,6 +137,28 @@ body {
     margin-top: 100px;; 
   }
 }
+
+/* ------ Images ------- */
+
+.art-inspirations {
+  height: calc(100vh - 40px); /* Subtract the height of the header menu */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  overflow: hidden;
+}
+
+.added-image {
+  position: absolute;
+  object-fit: cover;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
 
 /* ------ Zooming ------- */
 

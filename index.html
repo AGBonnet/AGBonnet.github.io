@@ -3,39 +3,133 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Visual Flow</title>
-  <link rel="stylesheet" href="styles/styles.css">
-  <link rel="stylesheet" href="styles/menu.css">
-  <script src="scripts/menu.js"></script>
-
+  <title>Portfolio</title>
+  <link rel="stylesheet" href="/styles/styles.css">
+  <link rel="stylesheet" href="/styles/portfolio.css">
+  <link rel="stylesheet" href="/styles/menu.css">
 </head>
 <body>
-  <div class="menu-toggle"></div>
   <nav class="header-menu">
     <ul>
-      <li><a href="index.html">VISUAL FLOW</a></li>
-      <li><a href="pages/poetry.html">POETRY</a></li> 
-      <li><a href="../pages/portfolio.html">PORTFOLIO</a></li>
-      <li><a href="pages/contact.html">ABOUT</a></li>
+      <li><a href="/index.html" class="logo">THE MEMORY PALACE</a></li>
+      <li><a href="/pages/poetry.html">POETRY</a></li> 
+      <li><a href="/pages/flow.html">VISUAL FLOW</a></li>
+      <li><a href="/pages/contact.html">ABOUT</a></li>
+      <li><a href="https://www.instagram.com/antoine.bnnt">
+          <img src="https://www.logo.wine/a/logo/Instagram/Instagram-Glyph-Black-Logo.wine.svg" alt="Instagram Logo" width="30" height="30">
+      </a></li>
     </ul>
   </nav>
-  <div id="welcome-screen" class="art-inspirations">
-    <div id="title" class="fade-in">
-      <h3>
-        <span id='title-line'>A Digital Ballad</span>
-        <span id="author">by Hypnognosis</span>
-      </h3>
-      <h4 id="subtitle">Enter visual flow.</h4>
+
+  <div class="content-container">
+    <div class="gallery">
+      <div class="image-column">
+        <div class="image-container-link">
+          <a href="/portfolio/blackswan/blackswan.html">
+            <img src="/portfolio/gallery/liza.jpeg">
+            <div class="project-title">BLACK SWAN</div>
+          </a>
+        </div>
+        <div class="image-container-link">
+          <img src="/portfolio/gallery/sandra2.jpg" alt="Sandra">
+          <div class="project-title">LES GANTS NOIRS</div>
+        </div>
+        <div class="image-container-link">
+          <img src="/portfolio/gallery/contorsion1.jpeg" alt="Contorsion I">
+          <div class="project-title">CONTORSIONS</div>
+        </div>
+        <div class="image-container-link">
+          <img src="/portfolio/gallery/merill.jpeg" alt="Merill">
+          <div class="project-title"></div>
+        </div>
+        <div class="image-container">
+          <img src="/portfolio/gallery/toulon.jpeg" alt="Toulon">
+        </div>
+        <div class="image-container">
+          <img src="/portfolio/gallery/jordane3.jpeg" alt="Jordane I">
+        </div>
+        <div class="image-container">
+          <img src="/portfolio/gallery/gala.JPG" alt="Gala">
+        </div>
+        <div class="image-container">
+          <img src="/portfolio/gallery/firenze.jpeg" alt="Firenze I">
+        </div>
+        <div class="image-container">
+          <img src="/portfolio/gallery/audrey.jpeg" alt="Audrey">
+        </div>
+        <div class="image-container">
+          <img src="/portfolio/gallery/merillred.JPG" alt="Merill Red">
+        </div>
+        <div class="image-container">
+          <img src="/portfolio/gallery/contorsion2.jpeg" alt="Contorsion II">
+        </div>
+        <div class="image-container">
+          <img src="/portfolio/gallery/montreal3.jpeg" alt="Montreal III">
+        </div>
+        <div class="image-container">
+          <img src="/portfolio/gallery/contorsion3.jpeg" alt="Contorsion III">
+        </div>
+        <div class="image-container">
+          <img src="/portfolio/gallery/justine.JPG" alt="Justine">
+        </div>
+
+      </div>
+
+      <div class="image-column">
+        <div class="image-container-link">
+          <a href="/portfolio/narcissus/narcissus.html">
+            <img src="/portfolio/gallery/narcissus.jpeg" alt="Narcissus">
+            <div class="project-title">DEATH OF NARCISSUS</div>
+          </a>
+        </div>
+        <div class="image-container-link">
+          <img src="/portfolio/gallery/jordane.jpeg" alt="Jordane III">
+          <div class="project-title">THE WITCH<br>THE SPIDER <br>& THE STRAITJACKET</div>
+        </div>
+        <div class="image-container-link">
+          <img src="/portfolio/gallery/brice.JPG" alt="Brice">
+          <div class="project-title">WHITE RABBIT</div>
+        </div>
+        <div class="image-container">
+          <img src="/portfolio/gallery/newyork2.jpg" alt="New York">
+        </div>
+        <div class="image-container">
+          <img src="/portfolio/gallery/lyon.JPG" alt="Lyon">
+        </div>
+        <div class="image-container">
+          <img src="/portfolio/gallery/jordane2.jpeg" alt="Jordane II">
+        </div>
+        <div class="image-container">
+          <img src="/portfolio/gallery/firenze2.jpeg" alt="Firenze II">
+        </div>
+        <div class="image-container">
+          <img src="/portfolio/gallery/montreal2.JPG" alt="Montreal II">
+        </div>
+        <div class="image-container">
+          <img src="/portfolio/gallery/gala2.JPG" alt="Gala II">
+        </div>
+        <div class="image-container">
+          <img src="/portfolio/gallery/merillred3.JPG" alt="Merill Red III">
+        </div>
+        <div class="image-container">
+          <img src="/portfolio/gallery/gala3.JPG" alt="Gala III">
+        </div>
+        <div class="image-container">
+          <img src="/portfolio/gallery/merillred2.JPG" alt="Merill Red II">
+        </div>
+        <div class="image-container">
+          <img src="/portfolio/gallery/antoine4.jpg" alt="Antoine IV">
+        </div>
+      </div>
+    </div>
+
+    <div class="overlay">
+      <img class="zoomed-image" src="" alt="Zoomed Image">
     </div>
   </div>
+  
 
-  <div id="image-container" class="art-inspirations"></div>
-
-  <div id="zoomed-container">
-    <svg id="zoomed-svg"></svg>
-  </div>
-
-  <script src="scripts/flow.js"></script>
-
+  <script src="/scripts/portfolio.js"></script>
 </body>
 </html>
+

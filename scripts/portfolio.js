@@ -2,6 +2,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const imageContainers = document.querySelectorAll('.image-container');
     const overlay = document.querySelector('.overlay');
     const zoomedImage = document.querySelector('.zoomed-image');
+    const portfolioTitle = document.querySelector('.portfolio-title');
+    const portfolioInfobox = document.querySelector('.portfolio-infobox');
+  
+    portfolioTitle.addEventListener('click', () => {
+      portfolioInfobox.classList.toggle('open');
+    });
+  
 
     // Function to open the overlay and display the clicked image
     function openOverlay(imageSrc) {

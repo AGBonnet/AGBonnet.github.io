@@ -174,7 +174,8 @@ function throttle(func, delay) {
 const throttledScrollHandler = throttle(function () {
     const windowHeight = window.innerHeight;
     const scrollThreshold = 0.2 * windowHeight;
-    const bannerThreshold = 0.15 * windowHeight;
+    const bannerThreshold = 0.1 * windowHeight;
+    console.log(poemContainer.scrollTop)
 
     // If poem is not displayed and user scrolls past threshold, show banner
     if (poemContainer.scrollTop > scrollThreshold && !poemDisplayed) {
@@ -183,11 +184,11 @@ const throttledScrollHandler = throttle(function () {
         banner.classList.remove('show');
     }
 
-    // If user scrolls past banner threshold, hide poetry buttons
+    // If user scrolls past banner threshold, hide poetry buttons (decrease opacity)
     if (poemContainer.scrollTop > bannerThreshold && poemContent.innerHTML.trim()) {
-        poetryButtons.style.transform = 'translateY(-100%)';
+        poetryButtons.style.opacity = 0;
     } else {
-        poetryButtons.style.transform = 'translateY(0)';
+        poetryButtons.style.opacity = 1;
     }
 
     /* If poem is displayed, and the user scrolls past the last displayed stanza, 
