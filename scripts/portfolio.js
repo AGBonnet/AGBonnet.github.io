@@ -5,9 +5,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const portfolioTitle = document.querySelector('.portfolio-title');
     const portfolioInfobox = document.querySelector('.portfolio-infobox');
 
-    portfolioTitle.addEventListener('click', () => {
-        portfolioInfobox.classList.toggle('open');
-    });
+    if (portfolioTitle) {
+        portfolioTitle.addEventListener('click', () => {
+            portfolioInfobox.classList.toggle('open');
+        });
+    }
 
     const leftArrow = document.querySelector('.left-arrow');
     const rightArrow = document.querySelector('.right-arrow');

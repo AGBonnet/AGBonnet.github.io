@@ -278,7 +278,9 @@ function handleMouseStop() {
 
 function fadeOutTitle() {
   if (subTitle.classList.contains('clicked')) {
-    hideHeaderMenu();
+    if (!isMobileDevice) {
+      hideHeaderMenu();
+    }
     title.classList.remove('fade-in');
     title.classList.add('fade-out');
     setTimeout(() => {

@@ -66,7 +66,7 @@ function showPoem() {
         for (let i = 0; i < titleWords.length; i++) {
             titleWords[i].addEventListener('click', function() {
                 buttonClicked = true;
-                if (!headerMenuHidden) {
+                if (!headerMenuHidden && !isMobileDevice) {
                     hideHeaderMenu();
                 }
             });
@@ -164,9 +164,10 @@ function setAvailableWords() {
         const word = words[i];
         word.id = clean(word.textContent); 
 
+        /* Set all words whose bottom is above the window's bottom as available */
         const rect = word.getBoundingClientRect();
-        const isWithin = rect.top < window.innerHeight && rect.bottom >= 0;
-
+        const isWithin = rect.bottom <= window.innerHeight;
+    
         if (isWithin && !word.classList.contains('visible') && !word.classList.contains('title-word')) {
             word.classList.add('available');
             word.addEventListener('click', setAvailableWords);
@@ -222,9 +223,10 @@ const throttledScrollHandler = throttle(function () {
     choose a random root word from displayed words and show the next words */
     if (poemDisplayed) {
         const visibleWords = Array.from(document.getElementsByClassName('visible'));
-        const bottoms = visibleWords.map(word => word.getBoundingClientRect().bottom);
-        const max_bottom = Math.max(...bottoms);
-        const isPast = max_bottom < 50;
+        let visibleBottoms = visibleWords.map(word => word.getBoundingClientRect().bottom);
+        const max_visible_bottom = Math.max(...visibleBottoms);
+        const isPast = max_visible_bottom < 0.1 * windowHeight;
+
         if (isPast) {
             const visibleWordsFiltered = visibleWords.filter(word => word.textContent.length > 3);
             const randIdx = Math.floor(Math.random()*visibleWordsFiltered.length);
@@ -232,7 +234,6 @@ const throttledScrollHandler = throttle(function () {
             randWord.dispatchEvent(new Event('click'));
         }
     }
-
 }, 100);
 
 document.addEventListener('DOMContentLoaded', function () {

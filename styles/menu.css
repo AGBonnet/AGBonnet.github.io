@@ -2,7 +2,7 @@
 .header-menu {
   background-color: white;
   position: relative;
-  z-index: 0;
+  z-index: 10000;
   opacity: 1;
   padding-left: 5%;
   padding-right: 5%;
@@ -54,4 +54,16 @@
 
 
 @media (max-width: 480px) {
+  .header-menu {
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  /* Decrease font-size for mobile */
+  .header-menu li {
+    font-size: 12px;
+  }
+  .header-menu .logo {
+    font-size: 14px;
+  }
 }
