@@ -52,7 +52,6 @@ body{
 
 .content-container {
   opacity: 0;
-  /* fade in content */
   animation: fadeIn 1s forwards;
 }
 

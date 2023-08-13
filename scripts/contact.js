@@ -1,5 +1,21 @@
 document.addEventListener('DOMContentLoaded', function () {
 
+    const preloadImages = () => {
+        const images = document.querySelectorAll('.tarot-card img');
+        images.forEach(image => {
+          const img = new Image();
+          img.src = image.src;
+        });
+      };
+    preloadImages();
+
+    const tarotCards = document.querySelectorAll('.tarot-card');
+
+    tarotCards.forEach(card => {
+        card.addEventListener('click', function () {
+        card.classList.toggle('clicked');
+        });
+    });
 
     // Check if the contact form is present on the page
     const form = document.querySelector('.contact-form');

@@ -4,17 +4,52 @@ document.addEventListener("DOMContentLoaded", function () {
     const zoomedImage = document.querySelector('.zoomed-image');
     const portfolioTitle = document.querySelector('.portfolio-title');
     const portfolioInfobox = document.querySelector('.portfolio-infobox');
-  
+
     portfolioTitle.addEventListener('click', () => {
-      portfolioInfobox.classList.toggle('open');
+        portfolioInfobox.classList.toggle('open');
     });
-  
+
+    const leftArrow = document.querySelector('.left-arrow');
+    const rightArrow = document.querySelector('.right-arrow');
+
+    leftArrow.addEventListener('click', () => {
+        currentImageIndex = (currentImageIndex - 1 + imageSources.length) % imageSources.length;
+        zoomedImage.src = imageSources[currentImageIndex];
+    });
+
+    rightArrow.addEventListener('click', () => {
+        currentImageIndex = (currentImageIndex + 1) % imageSources.length;
+        zoomedImage.src = imageSources[currentImageIndex];
+    });
+
+    // Create an array to hold the image sources
+    const imageSources = [];
+
+    // Attach click event listeners to each image container
+    imageContainers.forEach(container => {
+        const images = container.querySelectorAll('img');
+
+        // Populate the imageSources array with image URLs
+        images.forEach(image => {
+            imageSources.push(image.getAttribute('src'));
+        });
+
+        // Handle image click to open overlay
+        container.addEventListener('click', event => {
+            const clickedImage = event.target.closest('img');
+            if (clickedImage) {
+                const clickedImageIndex = imageSources.indexOf(clickedImage.getAttribute('src'));
+                openOverlay(clickedImageIndex);
+            }
+        });
+    });
 
     // Function to open the overlay and display the clicked image
-    function openOverlay(imageSrc) {
+    function openOverlay(imageIndex) {
         overlay.classList.add('active');
-        zoomedImage.src = imageSrc;
+        zoomedImage.src = imageSources[imageIndex];
         overlay.style.cursor = 'cursor';
+        currentImageIndex = imageIndex;
     }
 
     // Function to close the overlay
@@ -22,21 +57,22 @@ document.addEventListener("DOMContentLoaded", function () {
         overlay.classList.remove('active');
         overlay.style.cursor = 'default';
     }
-  
-    // Attach click event listeners to each image container
-    imageContainers.forEach(container => {
-        // Select all elements img in imageContainer
-        const images = container.querySelectorAll('img');
 
-        // For each image, addEventListener click to open overlay their imageSrc
-        for (let i = 0; i < images.length; i++) {
-            let imageSrc = images[i].getAttribute('src');
-            images[i].addEventListener('click', () => {
-                openOverlay(imageSrc);
-            });
+    let currentImageIndex = 0;
+
+    // Handle arrow key events
+    document.addEventListener('keydown', event => {
+        if (overlay.classList.contains('active')) {
+            if (event.key === 'ArrowLeft') {
+                currentImageIndex = (currentImageIndex - 1 + imageSources.length) % imageSources.length;
+                zoomedImage.src = imageSources[currentImageIndex];
+            } else if (event.key === 'ArrowRight') {
+                currentImageIndex = (currentImageIndex + 1) % imageSources.length;
+                zoomedImage.src = imageSources[currentImageIndex];
+            }
         }
     });
-  
+
     // Close overlay when clicking outside the zoomed image
     overlay.addEventListener('click', event => {
         if (event.target === overlay) {
@@ -44,4 +80,3 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
-  

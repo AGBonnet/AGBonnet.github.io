@@ -2,7 +2,7 @@
 .header-menu {
   background-color: white;
   position: relative;
-  z-index: 9000;
+  z-index: 0;
   opacity: 1;
   padding-left: 5%;
   padding-right: 5%;
@@ -13,7 +13,6 @@
   transition: transform 0.5s ease;
 }
 
-/* When hidden, move the menu off the screen */
 .header-menu.hidden {
   transform: translateY(-100%);
 }

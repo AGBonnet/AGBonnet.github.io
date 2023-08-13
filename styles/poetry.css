@@ -9,7 +9,11 @@ body {
   background-color: white;
   color: #222;
   height: 80%; 
+
+
 }
+
+/* Poetry content */  
 
 .poetry-container {
   text-align: left;
@@ -22,6 +26,9 @@ body {
   padding-bottom: 150px;
   position: relative;
   z-index: 1;
+  /* I want the text to go off the top of the screen, but still allow scrolling */
+  padding-top: 100px;
+  margin-top: -100px;
 }
 
 .poetry-container .stanza {
@@ -41,10 +48,13 @@ body {
 
 .poetry-container .line.title{
   margin-top: 100px;
-  margin-left: 12%;
+  margin-left: 10%;
   text-align: center;
   font-size: 30px;
   font-weight: bold;
+  opacity: 0;
+  animation: fade-in 1s ease-in-out;
+  animation-fill-mode: forwards;
 }
 
 .poetry-container .line.subtitle {
@@ -124,6 +134,7 @@ body {
   border-radius: 2px;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
+  display:none; /* TEMPORARY */
 }
 
 .poetry-buttons button.active {
@@ -163,11 +174,12 @@ body {
   left: 0;
   width: 100%;
   height: 80px;
-  z-index: 9900;
+  z-index: 9900; 
   background-color: transparent;
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
   opacity: 0;
   transition: opacity 0.3s;
   animation: slide-up 0.3s ease-in-out;
@@ -178,6 +190,14 @@ body {
   animation: slide-down 0.3s ease-in-out;
 }
 
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 @keyframes slide-up {
   0% {
     transform: translateY(0);

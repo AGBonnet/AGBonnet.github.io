@@ -15,8 +15,8 @@
     justify-content: center;
     text-align: left;
     width: 50%;
-    margin-left: 25%; 
-    margin-right: 25%;
+    overflow: hidden;
+    margin-left: 25%;
     margin-bottom: 50px;
     margin-top: 10%;
     padding: 10px;
@@ -26,11 +26,20 @@
     font-size: 18px;
     color: #555;
     line-height: 1.5;
+    width: 80%;
+    margin-left: 10%; 
   }
   .container .description a {
-    font-weight: 500;
-    text-decoration: underline;
-    color: #000;
+    /* no underline, but add bold and italic */
+    font-style: italic;
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
+  }
+  /* on hover, change the color to red SOFTLY */
+  .container .description a:hover {
+    color: red;
+    transition: color 0.3s;
   }
   
   .title {
@@ -62,23 +71,53 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
   font-size: 14px;
   font-weight: bold;
   cursor: pointer;
-  transition: transform 0.3s;
+  transform-origin: center center;
+  transition: transform 0.3s, background-color 0.5s; 
   padding: 10px;
   margin-top: 10px;
+  overflow: hidden;
 }
 
 .tarot-card img {
   max-width: 100%;
   max-height: 100%;
+  transition: opacity 0.5s; /* Add a smooth transition for opacity change */
+  opacity: 1;
+
+}
+
+.tarot-card .recto,
+.tarot-card .verso {
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.5s;
+}
+
+.tarot-card .verso {
+  opacity: 0; /* Hidden by default */
+}
+
+/* Show the verso (back) image when the card is clicked */
+.tarot-card.clicked .verso {
+  opacity: 1;
 }
 
 .tarot-card:hover {
-  transform: scale(1.05);
+  transform: scale(1.05) translateZ(0);
 }
-  
+
+
   /* Contact Form */
 
   .contact-container {

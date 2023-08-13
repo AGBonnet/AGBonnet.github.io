@@ -8,7 +8,39 @@ let prevScrollPos = 0;
 const timeFade = 3;
 let poemDisplayed = false;
 let embeddings; 
+let timerId = null; 
+const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
+let buttonClicked = false;
+const headerMenu = document.querySelector('.header-menu');
+const headerThreshold = 100;
+let headerMenuHidden = false;
+
+// Function to hide the header menu
+function hideHeaderMenu() {
+    headerMenu.classList.add('hidden');
+    headerMenuHidden = true;
+}
+  
+// Function to show the header menu
+function showHeaderMenu() {
+    headerMenu.classList.remove('hidden');
+    headerMenuHidden = false;
+}
+
+
+function handleMouseMove(event) {
+    const mouseY = event.clientY;
+    if (buttonClicked) {
+      if (mouseY <= headerThreshold && headerMenuHidden) {
+        showHeaderMenu();
+      } else if (mouseY > headerThreshold && !headerMenuHidden) {
+        hideHeaderMenu();
+      }
+    }
+  }
+
+  
 function loadPoemContent(url) {
     prevScrollPos = 0; 
     poemContainer.scrollTop = 0; 
@@ -30,8 +62,14 @@ function showPoem() {
         setAvailableWords(); // Set the initial "available" words
 
         // add events listeners for all title words
-        const titleWords = document.getElementsByClassName('title-word');
+        const titleWords = document.getElementsByClassName('title-word-interactive');
         for (let i = 0; i < titleWords.length; i++) {
+            titleWords[i].addEventListener('click', function() {
+                buttonClicked = true;
+                if (!headerMenuHidden) {
+                    hideHeaderMenu();
+                }
+            });
             titleWords[i].addEventListener('click', showNextStanza);
         }
         document.addEventListener('scroll', setAvailableWords); 
@@ -69,7 +107,7 @@ function computeAppearanceTimes(root, words) {
     unknown_words = [];
     for (let i = 0; i < words.length; i++) {
         const word = words[i].textContent;
-        try {
+        try {
             const wordEmbedding = embeddings[clean(word)];
             const similarity = dotProduct(rootEmbedding, wordEmbedding);
             similarities[word] = 1-Math.abs(similarity);
@@ -93,6 +131,8 @@ function computeAppearanceTimes(root, words) {
 
 // Event handler for showing the next stanza
 function showNextStanza(event) {
+    clearTimeout(timerId);
+
     var root = event.target.textContent;
     if (root.includes('-')) {
         root = root.split('-')[0];
@@ -103,7 +143,7 @@ function showNextStanza(event) {
 
     for (let word in times) {
         const time = times[word];
-        setTimeout(function() {
+        timerId = setTimeout(function() {
             const elements = document.querySelectorAll(`#${clean(word)}`);
 
             elements.forEach(element => {
@@ -134,39 +174,27 @@ function setAvailableWords() {
         } 
     }
 }
-document.addEventListener('DOMContentLoaded', function () {
-
-    memoryPalaceButton.classList.add('active'); 
-    loadPoemContent('poems/palace.html'); 
-
-    memoryPalaceButton.addEventListener('click', () => {
-        loadPoemContent('poems/palace.html');
-        memoryPalaceButton.classList.add('active');
-        fauneButton.classList.remove('active');
-        poemDisplayed = false;
-        showPoem();
-    });
-
-    fauneButton.addEventListener('click', () => {
-        loadPoemContent('poems/faune.html');
-        fauneButton.classList.add('active');
-        memoryPalaceButton.classList.remove('active');
-        showPoem();
-        poemDisplayed = true;
-    });
-    showPoem();
-
-});
 
 // Throttle function based on timestamps
 function throttle(func, delay) {
     let lastCallTime = 0;
     return function (...args) {
-      const currentTime = Date.now();
-      if (currentTime - lastCallTime >= delay) {
-        func.apply(this, args);
-        lastCallTime = currentTime;
-      }
+        const currentTime = Date.now();
+        if (currentTime - lastCallTime >= delay) {
+            func.apply(this, args);
+            lastCallTime = currentTime;
+        }
+    };
+}
+
+// Debounce function to limit the frequency of event handling
+function debounce(callback, delay) {
+    let timerId;
+    return function (...args) {
+      clearTimeout(timerId);
+      timerId = setTimeout(() => {
+        callback.apply(this, args);
+      }, delay);
     };
   }
   
@@ -175,7 +203,6 @@ const throttledScrollHandler = throttle(function () {
     const windowHeight = window.innerHeight;
     const scrollThreshold = 0.2 * windowHeight;
     const bannerThreshold = 0.1 * windowHeight;
-    console.log(poemContainer.scrollTop)
 
     // If poem is not displayed and user scrolls past threshold, show banner
     if (poemContainer.scrollTop > scrollThreshold && !poemDisplayed) {
@@ -208,4 +235,30 @@ const throttledScrollHandler = throttle(function () {
 
 }, 100);
 
-poemContainer.addEventListener('scroll', throttledScrollHandler);
+document.addEventListener('DOMContentLoaded', function () {
+    memoryPalaceButton.classList.add('active'); 
+    loadPoemContent('poems/palace.html'); 
+
+    poemContainer.addEventListener('scroll', throttledScrollHandler);
+
+    if (!isMobileDevice) {
+        window.addEventListener('mousemove', debounce(handleMouseMove, 10));
+      }
+
+    memoryPalaceButton.addEventListener('click', () => {
+        loadPoemContent('poems/palace.html');
+        memoryPalaceButton.classList.add('active');
+        fauneButton.classList.remove('active');
+        poemDisplayed = false;
+        showPoem();
+    });
+
+    fauneButton.addEventListener('click', () => {
+        loadPoemContent('poems/faune.html');
+        fauneButton.classList.add('active');
+        memoryPalaceButton.classList.remove('active');
+        showPoem();
+        poemDisplayed = true;
+    });
+    showPoem();
+});

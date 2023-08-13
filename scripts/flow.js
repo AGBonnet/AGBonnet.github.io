@@ -197,15 +197,12 @@ function getRandomImage() {
 
 // Function to hide the header menu
 function hideHeaderMenu() {
-  console.log('hideHeaderMenu')
   headerMenu.classList.add('hidden');
   headerMenuHidden = true;
 }
 
 // Function to show the header menu
 function showHeaderMenu() {
-  console.log('showHeaderMenu')
-  // Add active class to header menu
   headerMenu.classList.remove('hidden');
   headerMenuHidden = false;
 }
