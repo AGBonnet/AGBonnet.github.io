@@ -1,25 +1,39 @@
 
 .header-menu {
   background-color: white;
-  position: relative;
   z-index: 10000;
   opacity: 1;
   padding-left: 5%;
   padding-right: 5%;
   height: 100px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
+  margin-top: 20px;
   transition: transform 0.5s ease;
+  overflow-x: auto;
+  display: flex; 
 }
 
 .header-menu.hidden {
   transform: translateY(-100%);
 }
 
+.header-menu .header-items, .header-menu .header-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.header-items {
+  margin-left: 5%;
+  margin-right: 5%;
+  width: 60%;
+}
+
+.header-logo {
+  width: 40%;
+}
+
+
 .header-menu ul {
   display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: space-between;
   padding: 0;
@@ -53,17 +67,31 @@
 }
 
 
+
 @media (max-width: 480px) {
   .header-menu {
-    width: 100%;
+    max-width: 100%;
     padding-left: 0;
-    padding-right: 0;
+    padding-right: 0px;
+    height: 80px;
+    width: 100vw;
+    overflow-x: hidden;
   }
-  /* Decrease font-size for mobile */
+  /* Reduce space between menu items */
+  .header-menu .header-items {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+  }
   .header-menu li {
     font-size: 12px;
   }
+  
   .header-menu .logo {
     font-size: 14px;
+    margin-left: 0px;
+  }
+  .header-menu .header-items li.instagram-logo {
+    display: none;
   }
 }

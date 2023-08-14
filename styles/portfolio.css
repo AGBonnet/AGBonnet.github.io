@@ -2,14 +2,13 @@
 body, ul {
     margin: 0;
     padding: 0;
-  }
+}
 
 .gallery {
   display: grid;
   margin: 0 auto;
-  margin-top: 20px;
   width: 90%;
-  grid-template-columns: repeat(2, 1fr); /* 2 columns with equal width */
+  grid-template-columns: repeat(2, 1fr);
   gap: 20px;
   padding: 10px;
   overflow-y: scroll;
@@ -101,6 +100,8 @@ body, ul {
   z-index: 1;
 }
 
+/* Arrows for scrolling through images */
+
 .arrow {
   position: absolute;
   top: 50%;
@@ -135,17 +136,20 @@ body, ul {
   opacity: 1;
 }
 
+/* Zoom mode */
+
 
 .overlay.active {
   display: flex;
 }
 
-/* Zoomed image inside overlay */
 .zoomed-image {
   max-width: 90%;
   max-height: 90%;
   user-select: none;
 }
+
+/* Infobox */
 
 .portfolio-infobox {
   margin-top: 0;
@@ -208,11 +212,45 @@ body, ul {
   opacity: 1;
 }
 
+/* Mobile */
 
 @media (max-width: 480px) {
 
   .project-title {
-    font-size: 20px;
+    font-size: 14px;
   }
+  .arrow {
+    /* Move to bottom of the screen */
+    top: auto;
+    bottom: 30px;
+    /* Make them smaller */
+    width: 40px;
+    height: 40px;
+  }
+
+  /* Allow sliding to scroll through images */
+  .gallery {
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .gallery {
+    gap: 5px;
+    width: 90%;
+    padding: 0px;
+
+  }
+
+  .triptych {
+    gap: 5px;
+  }
+
+  .image-column {
+    width: 100%;
+    padding: 0px;
+  }
+
   
 }

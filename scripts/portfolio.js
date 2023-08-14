@@ -1,18 +1,34 @@
+const imageContainers = document.querySelectorAll('.image-container');
+const overlay = document.querySelector('.overlay');
+const zoomedImage = document.querySelector('.zoomed-image');
+const portfolioTitle = document.querySelector('.portfolio-title');
+const portfolioInfobox = document.querySelector('.portfolio-infobox');
+const leftArrow = document.querySelector('.left-arrow');
+const rightArrow = document.querySelector('.right-arrow');
+const imageSources = [];
+let currentImageIndex = 0;
+
+// Function to open the overlay and display the clicked image
+function openOverlay(imageIndex) {
+    overlay.classList.add('active');
+    zoomedImage.src = imageSources[imageIndex];
+    overlay.style.cursor = 'cursor';
+    currentImageIndex = imageIndex;
+}
+
+// Function to close the overlay
+function closeOverlay() {
+    overlay.classList.remove('active');
+    overlay.style.cursor = 'default';
+}
+
 document.addEventListener("DOMContentLoaded", function () {
-    const imageContainers = document.querySelectorAll('.image-container');
-    const overlay = document.querySelector('.overlay');
-    const zoomedImage = document.querySelector('.zoomed-image');
-    const portfolioTitle = document.querySelector('.portfolio-title');
-    const portfolioInfobox = document.querySelector('.portfolio-infobox');
 
     if (portfolioTitle) {
         portfolioTitle.addEventListener('click', () => {
             portfolioInfobox.classList.toggle('open');
         });
     }
-
-    const leftArrow = document.querySelector('.left-arrow');
-    const rightArrow = document.querySelector('.right-arrow');
 
     leftArrow.addEventListener('click', () => {
         currentImageIndex = (currentImageIndex - 1 + imageSources.length) % imageSources.length;
@@ -23,9 +39,6 @@ document.addEventListener("DOMContentLoaded", function () {
         currentImageIndex = (currentImageIndex + 1) % imageSources.length;
         zoomedImage.src = imageSources[currentImageIndex];
     });
-
-    // Create an array to hold the image sources
-    const imageSources = [];
 
     // Attach click event listeners to each image container
     imageContainers.forEach(container => {
@@ -45,22 +58,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
-
-    // Function to open the overlay and display the clicked image
-    function openOverlay(imageIndex) {
-        overlay.classList.add('active');
-        zoomedImage.src = imageSources[imageIndex];
-        overlay.style.cursor = 'cursor';
-        currentImageIndex = imageIndex;
-    }
-
-    // Function to close the overlay
-    function closeOverlay() {
-        overlay.classList.remove('active');
-        overlay.style.cursor = 'default';
-    }
-
-    let currentImageIndex = 0;
 
     // Handle arrow key events
     document.addEventListener('keydown', event => {
