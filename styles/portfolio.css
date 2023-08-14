@@ -2,6 +2,7 @@
 body, ul {
     margin: 0;
     padding: 0;
+    background-color: white;
 }
 
 .gallery {
@@ -65,6 +66,13 @@ body, ul {
 .image-container, .image-container-link {
   cursor: pointer;
 }
+
+
+/* Toggle mobile view: add margin top 200px to move images below the navbar */
+.image-column {
+  margin-top: 0px;
+}
+
 
 /* Style for the images */
 .image-container img, .image-container-link img {
@@ -190,11 +198,14 @@ body, ul {
 }
 
 .portfolio-excerpt {
-  display: block;
-  width: 70%;
-  margin-left: 15%;
-  margin-top: 0;
-  margin-bottom: 0;
+  display: flex;
+  /* Horizontally center the excerpt within the column */
+  justify-content: left;
+  align-items: left;
+
+  /* Set minimum left to be the image column boundary */
+  
+  width: 100%;
   font-size: 20px;
   font-family: 'Averia';
   text-align: left;
@@ -205,11 +216,15 @@ body, ul {
   opacity: 0;
 }
 
-.portfolio-infobox.open .portfolio-excerpt {
+.gallery.open .portfolio-excerpt {
   margin-top: 15%; 
   margin-bottom: 15%;
   max-height: 500px; 
   opacity: 1;
+}
+
+.image-container.open{
+  margin-top: 200px;
 }
 
 /* Mobile */
@@ -219,38 +234,43 @@ body, ul {
   .project-title {
     font-size: 14px;
   }
+  .portfolio-title {
+    font-size: 16px;
+  }
+  .portfolio-description {
+    font-size: 12px;
+  }
+  .portfolio-credits {
+    font-size: 12px;
+  }
+  .portfolio-excerpt {
+    font-size: 12px;
+    overflow: visible;
+    white-space: nowrap;
+    z-index: 2;
+    margin-left: 0;
+  }
+  .image-container.open {
+    margin-top: 200px;
+  }
+
   .arrow {
-    /* Move to bottom of the screen */
     top: auto;
     bottom: 30px;
-    /* Make them smaller */
     width: 40px;
     height: 40px;
   }
-
-  /* Allow sliding to scroll through images */
-  .gallery {
-    overflow-x: scroll;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-  }
-  
   .gallery {
     gap: 5px;
-    width: 90%;
+    width: 95%;
     padding: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
 
   }
-
   .triptych {
     gap: 5px;
   }
-
-  .image-column {
-    width: 100%;
-    padding: 0px;
-  }
-
-  
 }

@@ -1,10 +1,12 @@
 const imageContainers = document.querySelectorAll('.image-container');
 const overlay = document.querySelector('.overlay');
+const gallery = document.querySelector('.gallery');
 const zoomedImage = document.querySelector('.zoomed-image');
 const portfolioTitle = document.querySelector('.portfolio-title');
 const portfolioInfobox = document.querySelector('.portfolio-infobox');
 const leftArrow = document.querySelector('.left-arrow');
 const rightArrow = document.querySelector('.right-arrow');
+const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 const imageSources = [];
 let currentImageIndex = 0;
 
@@ -26,7 +28,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (portfolioTitle) {
         portfolioTitle.addEventListener('click', () => {
-            portfolioInfobox.classList.toggle('open');
+            gallery.classList.toggle('open');
+            /* Take the first image of each image Column, and add margin-top = 100px */
+            const imageColumns = document.querySelectorAll('.image-column');
+            imageColumns.forEach(column => {
+                const firstImage = column.querySelector('.image-container:first-child');
+                firstImage.classList.toggle('open');
+                console.log('First image: ', firstImage);
+            }
+            );
         });
     }
 

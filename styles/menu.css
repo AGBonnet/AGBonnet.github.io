@@ -13,7 +13,7 @@
 }
 
 .header-menu.hidden {
-  transform: translateY(-100%);
+  transform: translateY(-150%);
 }
 
 .header-menu .header-items, .header-menu .header-logo {

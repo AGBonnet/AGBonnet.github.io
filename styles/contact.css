@@ -199,3 +199,33 @@
     }
   }
   
+  @media (max-width: 480px) {
+
+    .container {
+      width: 100%;
+      margin-left: 0;
+      margin-right: 0;
+      padding: 0;
+    }
+
+    .container .description{
+      font-size: 14px;
+    }
+    .tarot-deck {
+      width: 100%;
+      margin-left: 0;
+      margin-right: 0;
+      overflow: hidden;
+    }
+
+    .tarot-card {
+      height: 220px;
+      width: 140px;
+    }
+
+    .contact-container {
+      width: 100%;
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
