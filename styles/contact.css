@@ -11,23 +11,25 @@
 
   .container {
     display : flex;
-    flex-direction: column;
+    align-items: center;
     justify-content: center;
     text-align: left;
     width: 50%;
     overflow: hidden;
-    margin-left: 25%;
     margin-bottom: 50px;
     margin-top: 10%;
     padding: 10px;
+    /* Center content horizontally but without margins */
+    margin-left: auto;
+    margin-right: auto;
+  
   }
 
   .container .description{
     font-size: 18px;
     color: #555;
     line-height: 1.5;
-    width: 80%;
-    margin-left: 10%; 
+    width: 100%;
   }
   .container .description a {
     /* no underline, but add bold and italic */
@@ -202,8 +204,9 @@
   @media (max-width: 480px) {
 
     .container {
-      width: 100%;
-      margin-left: 0;
+      width: 80%;
+
+      margin-left: 10%;
       margin-right: 0;
       padding: 0;
     }
@@ -216,16 +219,34 @@
       margin-left: 0;
       margin-right: 0;
       overflow: hidden;
+      margin-bottom: 50px;
+      gap: 0px;
     }
 
     .tarot-card {
-      height: 220px;
-      width: 140px;
+      width: 30vw;
+      height: calc(3/2 * 30vw);
+      padding: 0;
+      margin-top: 10px;
     }
 
     .contact-container {
       width: 100%;
       margin-left: 0;
       margin-right: 0;
+    }
+
+    textarea {
+      font-size: 16px;
+    }
+
+    .alert {
+      font-size: 12px;
+    }
+    .title {
+      font-weight: 500;
+      margin-bottom: 30px;
+      font-size: 16px;
+      text-align: left;
     }
   }

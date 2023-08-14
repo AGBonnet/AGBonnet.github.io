@@ -8,7 +8,7 @@ body {
   padding: 0;
   background-color: white;
   color: #222;
-  height: 80%; 
+  height: 100%; 
 
 
 }
@@ -20,22 +20,21 @@ body {
   overflow-y: scroll;
   scroll-behavior: smooth;
   height: 100%;
-  width: 100%;
-  margin-left: 10%;
-  margin-right: 10%;
+  width: 80%;
+  /* Center horizontally */
+  margin-left: auto;
+  margin-right: auto;
   padding-bottom: 150px;
   position: relative;
-  z-index: 1;
-  /* I want the text to go off the top of the screen, but still allow scrolling */
-  padding-top: 100px;
-  margin-top: -100px;
+  z-index: 0;
 }
 
 .poetry-container .stanza {
   width: 50%;
-  align-content: center;
+  /* Center horizontally */
+  margin-left: 30%;
+  margin-right: auto;
   margin-bottom: 40px;
-  margin-left: 25%;
 }
 
 .poetry-container .line {
@@ -109,7 +108,7 @@ body {
   top: 15%;
   left: 0%;
   width: 100%;
-  height: 5%;
+  height: 0; /* TEMPORARY */
   z-index: 1000;
   opacity: 1;
   transition: opacity 0.5s ease;

@@ -18,14 +18,18 @@ let headerMenuHidden = false;
 
 // Function to hide the header menu
 function hideHeaderMenu() {
-    headerMenu.classList.add('hidden');
-    headerMenuHidden = true;
+    if (!isMobileDevice) {
+        headerMenu.classList.add('hidden');
+        headerMenuHidden = true;
+    }
 }
   
 // Function to show the header menu
 function showHeaderMenu() {
-    headerMenu.classList.remove('hidden');
-    headerMenuHidden = false;
+    if (!isMobileDevice) {
+        headerMenu.classList.remove('hidden');
+        headerMenuHidden = false;
+    }
 }
 
 

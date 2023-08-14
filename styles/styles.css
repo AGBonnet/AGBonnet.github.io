@@ -88,6 +88,11 @@ body{
   }
 }
 
+/* Disable scrollbar on any element */
+::-webkit-scrollbar {
+  display: none;
+}
+
 /* ------ Welcome Screen ------- */
 
 #title {

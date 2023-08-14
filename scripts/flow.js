@@ -324,7 +324,9 @@ document.addEventListener('DOMContentLoaded', function () {
   // Click event for subtitle
   subTitle.addEventListener('click', () => {
     buttonClicked = true;
-    hideHeaderMenu();
+    if (!isMobileDevice) {
+      hideHeaderMenu();
+    }
     subTitle.classList.add('clicked');
     fadeOutTitle();
     setTimeout(() => {
