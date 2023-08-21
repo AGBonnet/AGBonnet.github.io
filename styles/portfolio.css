@@ -1,43 +1,139 @@
 
+/* ----------- Image galleries ----------- */
+
 body, ul {
     margin: 0;
     padding: 0;
     background-color: white;
 }
 
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  margin-left: auto;
-  margin-right: auto;
-  align-items: center;
-  justify-content: center;
-  width: 90%;
-  gap: 20px;
-}
 
-.triptych {
+.gallery-1, .gallery-2, .gallery-3 {
   display: grid;
-  grid-template-rows: 1fr;
-  grid-template-columns: repeat(3, 1fr);
   margin: 0 auto;
   width: 90%;
   gap: 20px;
   padding: 10px;
-  overflow-x: scroll; /* Enable horizontal scrolling */
-  overflow-y: hidden; /* Hide vertical scrollbar */
+  overflow-y: scroll;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  white-space: nowrap; /* Prevent items from wrapping to a new line */
+  cursor: default;
 }
 
-/* Hide the scrollbar */
-.gallery::-webkit-scrollbar {
-    width: 0; 
-    height: 0; 
+.gallery-1 {
+  grid-template-columns: 1fr;
+  align-items: center;
+  justify-content: center;
+  margin-left: 25%;
+  margin-right: 25%;
+  width: 50%;
+  gap: 40px;
 }
 
-/* Style for the project title */
+.gallery-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.gallery-3 {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  grid-template-columns: repeat(3, 1fr);
+  white-space: nowrap;
+}
+
+.image-container, .image-column, .image-container-link, .portfolio-infobox {
+  position: relative;
+  overflow: hidden;
+}
+
+.image-container, .image-container-link {
+  cursor: pointer;
+}
+
+.image-container img, .image-container-link img {
+  max-width: 100%;
+  max-height: 100%;
+  height: auto;
+  transition: transform 0.3s ease, opacity 0.3s ease; 
+  padding: 10px;
+  opacity: 1; 
+  background-color: transparent;
+} 
+
+.image-container-link:hover img {
+  opacity: 0.85; 
+}
+
+.image-container-link:hover .project-title {
+  opacity: 1;
+}
+
+/* ----------- Zooming mode ----------- */
+
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  width: 60px;
+  height: 60px;
+  transform: translateY(-50%);
+  opacity: 0.5;
+  cursor: pointer;
+  z-index: 3;
+  transition: opacity 0.8s;
+  user-select: none;
+}
+
+.left-arrow {
+  left: 30px;
+  width: 50px; 
+  height: 50px;
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+  transform: rotate(-45deg) scale(0.6);
+}
+
+.right-arrow {
+  right: 30px;
+  width: 50px; 
+  height: 50px;
+  border-top: 1px solid black;
+  border-right: 1px solid black;
+  transform: rotate(45deg) scale(0.6); 
+}
+
+.arrow:hover {
+  opacity: 1;
+}
+
+.overlay.active {
+  display: flex;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.zoomed-image {
+  max-width: 90%;
+  max-height: 90%;
+  user-select: none;
+  z-index: 3;
+}
+
+/* ----------- Infobox ----------- */
+
 .project-title {
   position: absolute;
   top: 50%;
@@ -56,111 +152,9 @@ body, ul {
   text-shadow: 0 0 2px white;
 }
 
-/* Style for the image containers */
-.image-container, .image-column, .image-container-link, .portfolio-infobox {
-  position: relative;
-  overflow: hidden;
-}
-
-.image-container, .image-container-link {
-  cursor: pointer;
-}
-
-
-/* Toggle mobile view: add margin top 200px to move images below the navbar */
-.image-column {
-  margin-top: 0px;
-}
-
-
-/* Style for the images */
-.image-container img, .image-container-link img {
-  max-width: 100%;
-  height: auto;
-  transition: transform 0.3s ease, opacity 0.3s ease; 
-  padding: 10px;
-  opacity: 1; 
-  background-color: transparent;
-} 
-
-/* Slightly fade in image on hover */
-.image-container-link:hover img {
-  opacity: 0.85; 
-}
-
-/* Fade in project title on hover */
-.image-container-link:hover .project-title {
-  opacity: 1;
-}
-
-/* Full-screen overlay for zoomed image */
-.overlay {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: white;
-  justify-content: center;
-  align-items: center;
-  z-index: 1;
-}
-
-/* Arrows for scrolling through images */
-
-.arrow {
-  position: absolute;
-  top: 50%;
-  width: 60px;
-  height: 60px;
-  transform: translateY(-50%);
-  opacity: 0.5;
-  cursor: pointer;
-  z-index: 3;
-  transition: opacity 0.8s;
-  user-select: none;
-}
-.left-arrow {
-  left: 30px;
-  width: 50px; /* Set arrow width to match hitbox width */
-  height: 50px; /* Set arrow height to match hitbox height */
-  border-top: 1px solid black;
-  border-left: 1px solid black;
-  transform: rotate(-45deg) scale(0.6); /* Scale down the arrow */
-}
-
-.right-arrow {
-  right: 30px;
-  width: 50px; /* Set arrow width to match hitbox width */
-  height: 50px; /* Set arrow height to match hitbox height */
-  border-top: 1px solid black;
-  border-right: 1px solid black;
-  transform: rotate(45deg) scale(0.6); /* Scale down the arrow */
-}
-
-.arrow:hover {
-  opacity: 1;
-}
-
-/* Zoom mode */
-
-
-.overlay.active {
-  display: flex;
-}
-
-.zoomed-image {
-  max-width: 90%;
-  max-height: 90%;
-  user-select: none;
-}
-
-/* Infobox */
-
 .portfolio-infobox {
   margin-top: 0;
-  margin-bottom: 5%;
+  margin-bottom: 0%;
   padding: 10px;
   width: 100%;
   font-weight: 200;
@@ -174,7 +168,7 @@ body, ul {
   color: #000;
 }
 
-.portfolio-title {
+.portfolio-title, .portfolio-title-clickable {
   display: inline-block;
   width: auto;
   text-align: left;
@@ -184,7 +178,7 @@ body, ul {
   padding-bottom: 10px;
 }
 
-.portfolio-title:hover {
+.portfolio-title-clickable {
   cursor: pointer;
 }
 
@@ -198,35 +192,27 @@ body, ul {
 
 .portfolio-excerpt {
   display: flex;
-  /* Horizontally center the excerpt within the column */
   justify-content: left;
   align-items: left;
-
-  /* Set minimum left to be the image column boundary */
-  
   width: 100%;
   font-size: 20px;
   font-family: 'Averia';
   text-align: left;
   line-height: 1.5;
-  transition: margin 0.5s ease, opacity 1s ease, max-height 0.5s ease; /* Update transition properties */
+  transition: margin 0.5s ease, opacity 1s ease, max-height 0.5s ease; 
   max-height: 0; /* Start with zero height to hide the excerpt */
   overflow: hidden;
   opacity: 0;
 }
 
-.gallery.open .portfolio-excerpt {
-  margin-top: 15%; 
-  margin-bottom: 15%;
+.portfolio-infobox.open .portfolio-excerpt {
+  margin-top: 10%; 
+  margin-bottom: 10%;
   max-height: 500px; 
   opacity: 1;
 }
 
-.image-container.open{
-  margin-top: 200px;
-}
-
-/* Mobile */
+/* ----------- Mobile adaptation ----------- */
 
 @media (max-width: 480px) {
 
@@ -263,6 +249,10 @@ body, ul {
     height: 40px;
   }
   .gallery {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .gallery-single {
     grid-template-columns: 1fr;
     gap: 10px;
   }

@@ -10,6 +10,8 @@
   transition: transform 0.5s ease;
   overflow-x: auto;
   display: flex; 
+  position:relative;
+  margin-top: 0px;
 }
 
 .header-menu.hidden {
@@ -30,7 +32,6 @@
 .header-logo {
   width: 40%;
 }
-
 
 .header-menu ul {
   display: flex;

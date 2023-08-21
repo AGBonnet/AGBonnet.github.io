@@ -21,7 +21,6 @@ body {
   scroll-behavior: smooth;
   height: 100%;
   width: 80%;
-  /* Center horizontally */
   margin-left: auto;
   margin-right: auto;
   padding-bottom: 150px;
@@ -94,7 +93,7 @@ body {
 }
 
 
-/* Buttons to choose poem */
+/* Buttons to choose poem: Deprecated */
 
 .poetry-buttons {
   display: flex;

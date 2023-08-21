@@ -1,57 +1,57 @@
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-  
-  body {
-    background-color: #fff;
-    font-family: 'ProximaNova';
-  }
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-  .container {
-    display : flex;
-    align-items: center;
-    justify-content: center;
-    text-align: left;
-    width: 50%;
-    overflow: hidden;
-    margin-bottom: 50px;
-    margin-top: 10%;
-    padding: 10px;
-    /* Center content horizontally but without margins */
-    margin-left: auto;
-    margin-right: auto;
-  
-  }
+body {
+  background-color: #fff;
+  font-family: 'ProximaNova';
+}
 
-  .container .description{
-    font-size: 18px;
-    color: #555;
-    line-height: 1.5;
-    width: 100%;
-  }
-  .container .description a {
-    /* no underline, but add bold and italic */
-    font-style: italic;
-    font-weight: bold;
-    text-decoration: none;
-    color: black;
-  }
-  /* on hover, change the color to red SOFTLY */
-  .container .description a:hover {
-    color: red;
-    transition: color 0.3s;
-  }
-  
-  .title {
-    font-weight: 500;
-    margin-bottom: 30px;
-    font-size: 22px;
-    text-align: left;
-  }
+.container {
+  display : flex;
+  align-items: center;
+  justify-content: center;
+  text-align: left;
+  width: 50%;
+  overflow: hidden;
+  margin-bottom: 50px;
+  margin-top: 10%;
+  padding: 10px;
+  /* Center content horizontally but without margins */
+  margin-left: auto;
+  margin-right: auto;
 
-  /* Tarot Deck */
+}
+
+.container .description{
+  font-size: 18px;
+  color: #555;
+  line-height: 1.5;
+  width: 100%;
+}
+.container .description a {
+  /* no underline, but add bold and italic */
+  font-style: italic;
+  font-weight: bold;
+  text-decoration: none;
+  color: black;
+}
+/* on hover, change the color to red SOFTLY */
+.container .description a:hover {
+  color: red;
+  transition: color 0.3s;
+}
+
+.title {
+  font-weight: 500;
+  margin-bottom: 30px;
+  font-size: 22px;
+  text-align: left;
+}
+
+/* Tarot Deck */
 
 
 .tarot-deck {

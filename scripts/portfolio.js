@@ -2,7 +2,7 @@ const imageContainers = document.querySelectorAll('.image-container');
 const overlay = document.querySelector('.overlay');
 const gallery = document.querySelector('.gallery');
 const zoomedImage = document.querySelector('.zoomed-image');
-const portfolioTitle = document.querySelector('.portfolio-title');
+const portfolioTitle = document.querySelector('.portfolio-title-clickable');
 const portfolioInfobox = document.querySelector('.portfolio-infobox');
 const leftArrow = document.querySelector('.left-arrow');
 const rightArrow = document.querySelector('.right-arrow');
@@ -10,7 +10,7 @@ const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera
 const imageSources = [];
 let currentImageIndex = 0;
 
-// Function to open the overlay and display the clicked image
+// Enable zooming mode
 function openOverlay(imageIndex) {
     overlay.classList.add('active');
     zoomedImage.src = imageSources[imageIndex];
@@ -18,7 +18,7 @@ function openOverlay(imageIndex) {
     currentImageIndex = imageIndex;
 }
 
-// Function to close the overlay
+// Disable zooming mode
 function closeOverlay() {
     overlay.classList.remove('active');
     overlay.style.cursor = 'default';
@@ -26,31 +26,14 @@ function closeOverlay() {
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    if (portfolioTitle) {
+    // Reveal excerpt
+    if (portfolioTitle && portfolioInfobox) {
         portfolioTitle.addEventListener('click', () => {
-            gallery.classList.toggle('open');
-            /* Take the first image of each image Column, and add margin-top = 100px */
-            const imageColumns = document.querySelectorAll('.image-column');
-            imageColumns.forEach(column => {
-                const firstImage = column.querySelector('.image-container:first-child');
-                firstImage.classList.toggle('open');
-                console.log('First image: ', firstImage);
-            }
-            );
+            portfolioInfobox.classList.toggle('open');
         });
     }
-
-    leftArrow.addEventListener('click', () => {
-        currentImageIndex = (currentImageIndex - 1 + imageSources.length) % imageSources.length;
-        zoomedImage.src = imageSources[currentImageIndex];
-    });
-
-    rightArrow.addEventListener('click', () => {
-        currentImageIndex = (currentImageIndex + 1) % imageSources.length;
-        zoomedImage.src = imageSources[currentImageIndex];
-    });
-
-    // Attach click event listeners to each image container
+    
+    // Zooming mode
     imageContainers.forEach(container => {
         const images = container.querySelectorAll('img');
 
@@ -69,20 +52,31 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // Handle arrow key events
+    // Zooming mode: switching between images
+    leftArrow.addEventListener('click', () => {
+        currentImageIndex = (currentImageIndex - 1 + imageSources.length) % imageSources.length;
+        zoomedImage.src = imageSources[currentImageIndex];
+    });
+    rightArrow.addEventListener('click', () => {
+        currentImageIndex = (currentImageIndex + 1) % imageSources.length;
+        zoomedImage.src = imageSources[currentImageIndex];
+    });
+
+    // Zooming mode: switching with keyboard arrows
     document.addEventListener('keydown', event => {
         if (overlay.classList.contains('active')) {
-            if (event.key === 'ArrowLeft') {
+            /* Down arrow moves to the next image in the gallery, up arrow moves to the previous image */
+            if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
                 currentImageIndex = (currentImageIndex - 1 + imageSources.length) % imageSources.length;
                 zoomedImage.src = imageSources[currentImageIndex];
-            } else if (event.key === 'ArrowRight') {
+            } else if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
                 currentImageIndex = (currentImageIndex + 1) % imageSources.length;
                 zoomedImage.src = imageSources[currentImageIndex];
             }
         }
     });
 
-    // Close overlay when clicking outside the zoomed image
+    // Exit zooming mode
     overlay.addEventListener('click', event => {
         if (event.target === overlay) {
             closeOverlay();
