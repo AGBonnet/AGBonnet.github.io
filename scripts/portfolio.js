@@ -1,6 +1,5 @@
-const imageContainers = document.querySelectorAll('.image-container');
 const overlay = document.querySelector('.overlay');
-const gallery = document.querySelector('.gallery');
+const gallery = document.querySelector('.gallery-1') || document.querySelector('.gallery-2') || document.querySelector('.gallery-3');
 const zoomedImage = document.querySelector('.zoomed-image');
 const portfolioTitle = document.querySelector('.portfolio-title-clickable');
 const portfolioInfobox = document.querySelector('.portfolio-infobox');
@@ -9,10 +8,13 @@ const rightArrow = document.querySelector('.right-arrow');
 const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 const imageSources = [];
 let currentImageIndex = 0;
+const imageContainers = document.querySelectorAll('.image-container');
+let touchStartX = 0;
+let touchEndX = 0;
 
+/* Sort the image containers so that the links are at the beginning of the array */
 if (isMobileDevice) {
     const imageContainerLinks = document.querySelectorAll('.image-container-link');
-    const imageContainers = document.querySelectorAll('.image-container');
     const imageContainerLinksArray = Array.from(imageContainerLinks);
     const imageContainersArray = Array.from(imageContainers);
     const sortedImageContainers = imageContainerLinksArray.concat(imageContainersArray);
@@ -87,6 +89,23 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
     });
+
+    /* For mobile devices, allow to switch between images during zooming mode by swiping */
+    if (isMobileDevice) {
+        overlay.addEventListener('touchstart', event => {
+            touchStartX = event.changedTouches[0].screenX;
+        });
+        overlay.addEventListener('touchend', event => {
+            touchEndX = event.changedTouches[0].screenX;
+            if (touchEndX < touchStartX) {
+                currentImageIndex = (currentImageIndex + 1) % imageSources.length;
+                zoomedImage.src = imageSources[currentImageIndex];
+            } else if (touchEndX > touchStartX) {
+                currentImageIndex = (currentImageIndex - 1 + imageSources.length) % imageSources.length;
+                zoomedImage.src = imageSources[currentImageIndex];
+            }
+        });
+    }
 
     // Exit zooming mode
     overlay.addEventListener('click', event => {

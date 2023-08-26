@@ -241,6 +241,15 @@ body, ul {
   .image-container.open {
     margin-top: 200px;
   }
+  .image-continer img, .image-container-link img {
+    /* center image horizontally */
+    margin-left: auto;
+    margin-right: auto;
+    width: calc(100% - 20px);
+    margin-top: 0;
+    margin-bottom: 0px;
+
+  }
 
   .arrow {
     top: auto;
@@ -249,11 +258,11 @@ body, ul {
     height: 40px;
   }
   .gallery-1, .gallery-2, .gallery-3 {
-    gap: 10px;
-    width: calc(100% - 10px);
+    width: 100%;
+    gap: 0px;
     grid-template-columns: 1fr;
-    margin-left: 0%;
-    margin-right: 0%;
     padding: 0px;
+    margin-left: 0;
+    margin-right: 0;
   }
 }

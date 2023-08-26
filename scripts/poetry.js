@@ -18,27 +18,23 @@ let headerMenuHidden = false;
 
 // Function to hide the header menu
 function hideHeaderMenu() {
-    if (!isMobileDevice) {
-        headerMenu.classList.add('hidden');
-        headerMenuHidden = true;
-    }
+    headerMenu.classList.add('hidden');
+    headerMenuHidden = true;
 }
   
 // Function to show the header menu
 function showHeaderMenu() {
-    if (!isMobileDevice) {
-        headerMenu.classList.remove('hidden');
-        headerMenuHidden = false;
-    }
+    headerMenu.classList.remove('hidden');
+    headerMenuHidden = false;
 }
 
 
 function handleMouseMove(event) {
     const mouseY = event.clientY;
     if (buttonClicked) {
-      if (mouseY <= headerThreshold && headerMenuHidden) {
+      if (mouseY <= headerThreshold && headerMenuHidden && !isMobileDevice) {
         showHeaderMenu();
-      } else if (mouseY > headerThreshold && !headerMenuHidden) {
+      } else if (mouseY > headerThreshold && !headerMenuHidden && !isMobileDevice) {
         hideHeaderMenu();
       }
     }
