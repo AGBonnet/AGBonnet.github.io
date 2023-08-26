@@ -67,13 +67,11 @@
   margin-left: 30px;
 }
 
-
-
 @media (max-width: 480px) {
   .header-menu {
     max-width: 100%;
-    padding-left: 0;
-    padding-right: 0px;
+    padding-left: 0%;
+    padding-right: 0%;
     height: 80px;
     width: 100vw;
     overflow-x: hidden;

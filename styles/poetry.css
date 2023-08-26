@@ -219,17 +219,23 @@ body {
     width: 100%;
     margin-left: 0px;
     margin-right: 0px;
-    overflow-x: hidden;
+    overflow-x: default;
+    /* Make text wrap */
+    white-space: normal;
+    overflow-wrap: break-word;
   }
   .poetry-container .line {
     font-size: 13px;
     margin-left: 5%;
+    margin-right: 5%;
   }
   .poetry-container .line.title {
-    margin-top: 80px;
-    margin-left: 80px;
-    display: block;
-    text-align: left;
+    margin: 0 auto;
+    margin-top: 100px;
+    display: flex;
+    /* Center horizontally */
+    justify-content: center;
+    text-align: center;
     font-size: 22px;
   }
   .poetry-container .line.subtitle {

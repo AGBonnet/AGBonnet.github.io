@@ -248,16 +248,12 @@ body, ul {
     width: 40px;
     height: 40px;
   }
-  .gallery {
-    grid-template-columns: 1fr;
+  .gallery-1, .gallery-2, .gallery-3 {
     gap: 10px;
-  }
-  .gallery-single {
+    width: calc(100% - 10px);
     grid-template-columns: 1fr;
-    gap: 10px;
-  }
-  .triptych {
-    gap: 5px;
-    grid-template-columns: 1fr;
+    margin-left: 0%;
+    margin-right: 0%;
+    padding: 0px;
   }
 }

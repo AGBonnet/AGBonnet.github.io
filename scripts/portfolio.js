@@ -10,6 +10,18 @@ const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera
 const imageSources = [];
 let currentImageIndex = 0;
 
+if (isMobileDevice) {
+    const imageContainerLinks = document.querySelectorAll('.image-container-link');
+    const imageContainers = document.querySelectorAll('.image-container');
+    const imageContainerLinksArray = Array.from(imageContainerLinks);
+    const imageContainersArray = Array.from(imageContainers);
+    const sortedImageContainers = imageContainerLinksArray.concat(imageContainersArray);
+    sortedImageContainers.forEach(container => {
+        gallery.appendChild(container);
+    });
+}
+
+
 // Enable zooming mode
 function openOverlay(imageIndex) {
     overlay.classList.add('active');
