@@ -114,6 +114,9 @@ body {
 .tarot-card.clicked .verso {
   opacity: 1;
 }
+.tarot-card.clicked .recto {
+  opacity: 0;
+}
 
 .tarot-card:hover {
   transform: scale(1.05) translateZ(0);

@@ -178,34 +178,58 @@ body, ul {
 .portfolio-title-clickable {
   cursor: pointer;
 }
+/* turn title red on hover */
+.portfolio-title-clickable:hover {
+  color: #ff0000;
+}
 
 .portfolio-description {
   font-size: 16px;
+  transition: margin 0.5s ease, opacity 1s ease, max-height 0.5s ease; 
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
 }
 .portfolio-credits {
   font-family: 'HelveticaNeue-Light';
   font-size: 16px;
+  transition: margin 0.5s ease, opacity 1s ease, max-height 0.5s ease; 
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
 }
 
 .portfolio-excerpt {
   display: flex;
-  justify-content: left;
-  align-items: left;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   font-size: 20px;
   font-family: 'Averia';
   text-align: left;
   line-height: 1.5;
   transition: margin 0.5s ease, opacity 1s ease, max-height 0.5s ease; 
-  max-height: 0; /* Start with zero height to hide the excerpt */
+  max-height: 0; 
   overflow: hidden;
   opacity: 0;
 }
 
+.portfolio-infobox.open .portfolio-description {
+  max-height: 100%; 
+  opacity: 1;
+}
+
+.portfolio-infobox.open .portfolio-credits {
+  max-height: 100%; 
+  opacity: 1;
+}
+
 .portfolio-infobox.open .portfolio-excerpt {
-  margin-top: 10%; 
-  margin-bottom: 10%;
-  max-height: 500px; 
+  margin-top: 5%; 
+  margin-bottom: 5%;
+  max-height: 100%; 
   opacity: 1;
 }
 

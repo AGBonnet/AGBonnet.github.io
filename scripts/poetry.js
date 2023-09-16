@@ -106,8 +106,6 @@ function computeAppearanceTimes(root, words) {
 // Event handler for showing the next stanza
 function showNextStanza(event) {
     clearTimeout(timerId);
-    console.log('showing next stanza')
-
     var root = event.target.textContent;
     if (root.includes('-')) {
         root = root.split('-')[0];
@@ -120,7 +118,6 @@ function showNextStanza(event) {
         const time = times[word];
         timerId = setTimeout(function() {
             const elements = document.querySelectorAll(`#${clean(word)}`);
-
             elements.forEach(element => {
                 if (element.classList.contains('available')) {
                     element.classList.add('visible');
@@ -137,7 +134,7 @@ function setAvailableWords() {
     const words = document.getElementsByClassName('word');
     for (let i = 0; i < words.length; i++) {
         const word = words[i];
-        word.id = clean(word.textContent); 
+        word.id = clean(word.textContent);
 
         /* Set all words whose bottom is above the window's bottom as available */
         const rect = word.getBoundingClientRect();
