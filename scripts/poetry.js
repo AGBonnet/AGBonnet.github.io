@@ -4,41 +4,17 @@ const poetryButtons = document.querySelector('.poetry-buttons');
 const memoryPalaceButton = document.getElementById('memory-palace-button');
 const fauneButton = document.getElementById('faune-aux-jumelles-button');
 const poemContent = document.getElementById('poem');
-let prevScrollPos = 0;
-const timeFade = 3;
-let poemDisplayed = false;
-let embeddings; 
-let timerId = null; 
+const banner = document.querySelector('.banner');
+
 const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-let buttonClicked = false;
-const headerMenu = document.querySelector('.header-menu');
+let prevScrollPos = 0;
+const timeFade = 3; 
 const headerThreshold = 100;
-let headerMenuHidden = false;
-
-// Function to hide the header menu
-function hideHeaderMenu() {
-    headerMenu.classList.add('hidden');
-    headerMenuHidden = true;
-}
-  
-// Function to show the header menu
-function showHeaderMenu() {
-    headerMenu.classList.remove('hidden');
-    headerMenuHidden = false;
-}
-
-
-function handleMouseMove(event) {
-    const mouseY = event.clientY;
-    if (buttonClicked) {
-      if (mouseY <= headerThreshold && headerMenuHidden && !isMobileDevice) {
-        showHeaderMenu();
-      } else if (mouseY > headerThreshold && !headerMenuHidden && !isMobileDevice) {
-        hideHeaderMenu();
-      }
-    }
-  }
+let embeddings; 
+let timerId = null; 
+let poemDisplayed = false;
+let titleShown = false;
 
   
 function loadPoemContent(url) {
@@ -54,7 +30,7 @@ function loadPoemContent(url) {
         });
 }
 
-function showPoem() {
+function showPoem() {
     fetch('../embeddings.json')
     .then((response) => response.json())
     .then((data) => {
@@ -65,12 +41,10 @@ function showPoem() {
         const titleWords = document.getElementsByClassName('title-word-interactive');
         for (let i = 0; i < titleWords.length; i++) {
             titleWords[i].addEventListener('click', function() {
-                buttonClicked = true;
-                if (!headerMenuHidden && !isMobileDevice) {
-                    hideHeaderMenu();
-                }
+                titleShown = true;
             });
             titleWords[i].addEventListener('click', showNextStanza);
+
         }
         document.addEventListener('scroll', setAvailableWords); 
     });
@@ -132,6 +106,7 @@ function computeAppearanceTimes(root, words) {
 // Event handler for showing the next stanza
 function showNextStanza(event) {
     clearTimeout(timerId);
+    console.log('showing next stanza')
 
     var root = event.target.textContent;
     if (root.includes('-')) {
@@ -201,31 +176,21 @@ function debounce(callback, delay) {
   
 // Updated scroll event handler using throttle
 const throttledScrollHandler = throttle(function () {
-    const windowHeight = window.innerHeight;
-    const scrollThreshold = 0.2 * windowHeight;
-    const bannerThreshold = 0.1 * windowHeight;
 
     // If poem is not displayed and user scrolls past threshold, show banner
-    if (poemContainer.scrollTop > scrollThreshold && !poemDisplayed) {
+    if (window.scrollY > 250 && !poemDisplayed) {
         banner.classList.add('show');
     } else {
         banner.classList.remove('show');
     }
 
-    // If user scrolls past banner threshold, hide poetry buttons (decrease opacity)
-    if (poemContainer.scrollTop > bannerThreshold && poemContent.innerHTML.trim()) {
-        poetryButtons.style.opacity = 0;
-    } else {
-        poetryButtons.style.opacity = 1;
-    }
-
-    /* If poem is displayed, and the user scrolls past the last displayed stanza, 
-    choose a random root word from displayed words and show the next words */
     if (poemDisplayed) {
         const visibleWords = Array.from(document.getElementsByClassName('visible'));
         let visibleBottoms = visibleWords.map(word => word.getBoundingClientRect().bottom);
         const max_visible_bottom = Math.max(...visibleBottoms);
-        const isPast = max_visible_bottom < 0.1 * windowHeight;
+        const height = window.scrollY;
+        console.log('Max visible bottom: ', max_visible_bottom, 'Height: ', height)
+        const isPast = max_visible_bottom < 0.1 * height;
 
         if (isPast) {
             const visibleWordsFiltered = visibleWords.filter(word => word.textContent.length > 3);
@@ -240,11 +205,7 @@ document.addEventListener('DOMContentLoaded', function () {
     memoryPalaceButton.classList.add('active'); 
     loadPoemContent('poems/palace.html'); 
 
-    poemContainer.addEventListener('scroll', throttledScrollHandler);
-
-    if (!isMobileDevice) {
-        window.addEventListener('mousemove', debounce(handleMouseMove, 10));
-      }
+    document.addEventListener('scroll', throttledScrollHandler);
 
     memoryPalaceButton.addEventListener('click', () => {
         loadPoemContent('poems/palace.html');

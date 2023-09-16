@@ -7,7 +7,6 @@ body, ul {
     background-color: white;
 }
 
-
 .gallery-1, .gallery-2, .gallery-3 {
   display: grid;
   margin: 0 auto;
@@ -35,8 +34,6 @@ body, ul {
 }
 
 .gallery-3 {
-  overflow-x: scroll;
-  overflow-y: hidden;
   grid-template-columns: repeat(3, 1fr);
   white-space: nowrap;
 }
@@ -245,10 +242,8 @@ body, ul {
     /* center image horizontally */
     margin-left: auto;
     margin-right: auto;
-    width: calc(100% - 20px);
     margin-top: 0;
-    margin-bottom: 0px;
-
+    margin-bottom: 0;
   }
 
   .arrow {
@@ -257,12 +252,13 @@ body, ul {
     width: 40px;
     height: 40px;
   }
+
   .gallery-1, .gallery-2, .gallery-3 {
-    width: 100%;
-    gap: 0px;
+    width: calc(100% - 20px);
     grid-template-columns: 1fr;
     padding: 0px;
-    margin-left: 0;
+    gap: 0px;
+    margin-left: 5px;
     margin-right: 0;
   }
 }

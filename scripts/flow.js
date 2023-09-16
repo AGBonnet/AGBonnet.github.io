@@ -27,7 +27,6 @@ let lastTouchY = 0;
 // ---------------- Constants ---------------- //
 
 const visualFlowDirectory = '/VisualFlow/';
-//const numImages = 234;        // Adjust the number based on the total number of images in the directory
 const maxImages = 25;         // Maximum number of images to be added at the same time
 const mouseSensitivity = 40;  // Adjust the threshold for mouse movement sensitivity
 const touchSensitivity = 5;   // Adjust the threshold for scrolling sensitivity
