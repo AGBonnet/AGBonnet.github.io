@@ -1,80 +1,59 @@
 
 .header-menu {
-  background-color: white;
-  z-index: 9999;
-  opacity: 1;
-  padding-left: 5%;
-  padding-right: 5%;
-  height: 100px;
-  margin-top: 20px;
-  transition: transform 0.5s ease;
-  overflow-x: auto;
   display: flex; 
   position: relative;
-  margin-top: 0px;
+  align-items: center;
+  justify-content: left;
+  background-color: white;
+  height: calc(15vh);
+  z-index: 9999;
+  margin-left: 5%;
+  margin-right: 5%;
+  transition: transform 0.5s ease;
+  overflow-x: auto;
+  font-family: 'HelveticaNeue';
 }
 
 .header-menu.hidden {
   transform: translateY(-150%);
 }
 
-.header-menu .header-items, .header-menu .header-logo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.header-items {
-  margin-left: 5%;
-  margin-right: 5%;
-  width: 60%;
+.header-logo {
+  width: 30%;
+  margin: 0;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 1.2;
 }
 
-.header-logo {
-  width: 40%;
+.header-items {
+  width: 60%;
+  margin-top: 1.5%;
+  justify-content: right;
+  margin-right: 0;
+  margin-left: calc(5vw);
+  font-weight: 400;
+  font-size: 16px;
 }
 
 .header-menu ul {
   display: flex;
-  align-items: center;
   justify-content: space-between;
   padding: 0;
   list-style: none;
-  width: 100%;
-}
-
-.header-menu li {
-  font-family: 'HelveticaNeue';
-  font-weight: 400;
-  font-size: 16px;
-  margin-top: 2%;
-  white-space: nowrap;
 }
 
 .header-menu a {
   text-decoration: none;
   color: #000;
-  padding: 10px;
 }
 
-.header-menu .logo {
-  display: block;
-  font-family: 'HelveticaNeue';
-  font-weight: bold;
-  font-size: 20px;
-  color: #333;
-  text-transform: uppercase;
-  line-height: 1.2;
-  margin-left: 30px;
-}
 
 @media (max-width: 480px) {
-  /* Make the menu scroll with the rest of the page */
 
   .header-menu {
-    padding-left: 0%;
-    padding-right: 0%;
-    height: 80px;
-    max-width: calc(100%-20px);
+    margin-left: 5%;
+    margin-right: 5%;
     overflow-x: hidden;
   }
 
@@ -82,20 +61,22 @@
     transform: none;
   }
 
-  .header-menu .header-items {
-    margin-left: 0;
-    margin-right: 0;
+  .header-logo {
+    font-size: 16px;
+    margin-right: 5%;
+  }
+  
+  .header-items {
+    margin: 0;
     width: 100%;
   }
+
   .header-menu li {
     font-size: 12px;
   }
   
-  .header-menu .logo {
-    font-size: 14px;
-    margin-left: 0px;
-  }
-  .header-menu .header-items li.instagram-logo {
+  .instagram-logo {
     display: none;
   }
+
 }

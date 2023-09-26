@@ -1,5 +1,8 @@
 
 /* ------ Welcome Screen ------- */
+body {
+    background-color: white;
+}
 
 #title {
     font-family: 'ProximaNovaBold';
