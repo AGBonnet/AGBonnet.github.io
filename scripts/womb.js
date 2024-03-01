@@ -17,7 +17,7 @@ const dir = '/portfolio/womb/';
 const maxImages = 29;         // Number of images in directory
 const randomOrder = Array.from({ length: maxImages }, (_, i) => i + 1).sort(() => Math.random() - 0.5);
 let idx = 0;
-const timeDelay = 8;          // Adjust the delay between each image addition
+const timeDelay = 50;          // Adjust the delay between each image addition
 const imageFadeDuration = 100;// Adjust the fade duration as needed (in milliseconds)
 const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 const headerThreshold = 120;  // Adjust the threshold for header menu visibility
@@ -27,6 +27,8 @@ const headerThreshold = 120;  // Adjust the threshold for header menu visibility
 
 function loadImage() {
   index = randomOrder[idx];
+
+  /* Add new image */
   const newImage = new Image();
   newImage.src = dir + 'womb' + index + '.png';
   newImage.classList.add('fade-in');
