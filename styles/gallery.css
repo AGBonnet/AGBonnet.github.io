@@ -7,7 +7,7 @@ body, ul {
 
 .gallery-1, .gallery-2, .gallery-3 {
   display: grid;
-  gap: calc(2.5vw);
+  gap: calc(1.5vw);
   width: 90%;
   margin-left: 5%;
   margin-right: 5%;
@@ -17,9 +17,9 @@ body, ul {
   grid-template-columns: 1fr;
   align-items: center;
   justify-content: center;
-  width: 50%;
-  margin-left: 25%;
-  margin-right: 25%;
+  width: 40%;
+  margin-left: 30%;
+  margin-right: 30%;
 }
 
 .gallery-2 {
@@ -45,9 +45,10 @@ body, ul {
   max-height: 100%;
   height: auto;
   transition: transform 0.3s ease, opacity 0.3s ease; 
-  padding-bottom: calc(2.5vw);
+  padding-bottom: calc(1.5vw);
   background-color: transparent;
 } 
+
 
 .image-container-link:hover img {
   opacity: 0.85; 
@@ -118,8 +119,11 @@ body, ul {
   max-width: 90%;
   max-height: 90%;
   user-select: none;
-  z-index: 3;
+  z-index: 9999;
   cursor: default;
+  -webkit-user-select: none; 
+  -ms-user-select: none;
+  user-select: none;
 }
 
 /* ----------- Mobile adaptation ----------- */
@@ -145,7 +149,7 @@ body, ul {
         margin-right: auto;
         margin-top: 0;
         margin-bottom: 0;
-        padding: 0;
+        padding-bottom: calc(1.5vw);
     }
 
     .arrow {

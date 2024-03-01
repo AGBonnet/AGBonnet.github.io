@@ -1,0 +1,118 @@
+.header-menu {
+    position: fixed;
+    top: calc(4vh);
+    height: calc(8vh);
+    width: 100%;
+    align-items: center;
+    justify-content: center; 
+    background-color: transparent;
+    z-index: 3;
+    transition: transform 0.5s ease;
+    overflow-x: auto;
+    font-family: 'HelveticaNeue-Bold';
+  }
+  
+  .header-menu.hidden {
+    transform: translateY(-150%);
+  }
+  
+  .header-logo {
+    width: 100%;
+    margin: 0 auto;
+    font-size: 36px;
+    color: rgb(0, 0, 0, 0.7);
+    font-size-adjust: none;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  
+  .mobile-menu-button {
+    z-index: 4;
+    display: none;  /* Hidden by default */
+    cursor: pointer;
+  }
+  
+  .menu-icon {
+    width: 30px;
+    height: 2px;
+    background-color: #000;
+    margin: 5px 0;
+    transition: background-color 0.3s ease;
+  }
+  
+  .menu-icon:hover {
+    background-color: #555;
+  }
+  
+  .header-items {
+    display: none;
+    width: 60%;
+    margin-top: 1.5%;
+    justify-content: flex-end;
+    margin-right: 0;
+    margin-left: calc(5vw);
+    font-weight: 400;
+    font-size: 16px;
+  }
+  
+  
+  .header-menu ul {
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+    list-style: none;
+  }
+  
+  .header-menu a {
+    text-decoration: none;
+    color: #000;
+  }
+  
+  @media (max-width: 480px) {
+    .header-menu {
+        margin-left: 5%;
+        margin-right: 5%;
+        overflow-x: hidden;
+    }
+  
+    .header-menu.hidden {
+        transform: none;
+    }
+  
+    .header-logo {
+        font-size: 16px;
+        margin-right: 5%;
+    }
+  
+    .mobile-menu-button {
+        display: block; /* Show the button on smaller screens */
+    }
+  
+    .header-items {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: white;
+        padding: 0;
+        margin: 0;
+    }
+  
+    .header-menu.open .header-items {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        
+    }
+  
+    .header-menu li {
+        font-size: 16px;
+    }
+  
+    .instagram-logo {
+        display: block; /* Show Instagram logo on smaller screens */
+    }
+  }

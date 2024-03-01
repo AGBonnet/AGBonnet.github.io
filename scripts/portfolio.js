@@ -5,6 +5,7 @@ const portfolioTitle = document.querySelector('.portfolio-title-clickable');
 const portfolioInfobox = document.querySelector('.portfolio-infobox');
 const leftArrow = document.querySelector('.left-arrow');
 const rightArrow = document.querySelector('.right-arrow');
+const menu = document.querySelector('.header-menu');
 const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 const imageSources = [];
 let currentImageIndex = 0;
@@ -27,6 +28,7 @@ if (isMobileDevice) {
 // Enable zooming mode
 function openOverlay(imageIndex) {
     overlay.classList.add('active');
+    menu.classList.add('hidden')
     zoomedImage.src = imageSources[imageIndex];
     overlay.style.cursor = 'cursor';
     currentImageIndex = imageIndex;
@@ -35,6 +37,7 @@ function openOverlay(imageIndex) {
 // Disable zooming mode
 function closeOverlay() {
     overlay.classList.remove('active');
+    menu.classList.remove('hidden')
     overlay.style.cursor = 'default';
 }
 

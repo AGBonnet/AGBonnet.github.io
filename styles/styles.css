@@ -45,6 +45,16 @@
   src: url('/styles/fonts/AveriaSerifLibre-Bold.ttf');
 }
 
+@font-face {
+  font-family: 'Cardinal';
+  src: url('/styles/fonts/cardinalclassicmidweb-regular.woff2');
+}
+
+@font-face {
+  font-family: 'CardinalItalic';
+  src: url('/styles/fonts/cardinalclassicmidweb-italic.woff2');
+}
+
 body{
   margin: 0;
   padding: 0;

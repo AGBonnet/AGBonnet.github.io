@@ -241,7 +241,6 @@ function handleMouseMove(event) {
   const mouseX = event.clientX;
   const mouseY = event.clientY;
 
-
   // Show/hide header menu on mouse move
   if (buttonClicked) {
     if (mouseY <= headerThreshold && headerMenuHidden) {
@@ -250,7 +249,7 @@ function handleMouseMove(event) {
       hideHeaderMenu();
     }
   }
-
+  
   // Add random images
   const distance = calculateDistance(lastMouseX, lastMouseY, mouseX, mouseY);
 

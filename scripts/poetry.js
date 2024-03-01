@@ -10,13 +10,13 @@ const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera
 
 let prevScrollPos = 0;
 const timeFade = 3; 
-const headerThreshold = 100;
 let embeddings; 
 let timerId = null; 
+const headerThreshold = 250;
 let poemDisplayed = false;
-let titleShown = false;
 
   
+
 function loadPoemContent(url) {
     prevScrollPos = 0; 
     poemContainer.scrollTop = 0; 
@@ -40,11 +40,8 @@ function showPoem() {
         // add events listeners for all title words
         const titleWords = document.getElementsByClassName('title-word-interactive');
         for (let i = 0; i < titleWords.length; i++) {
-            titleWords[i].addEventListener('click', function() {
-                titleShown = true;
-            });
             titleWords[i].addEventListener('click', showNextStanza);
-
+            titleWords[i].addEventListener('click', function() {poemDisplayed = true;});
         }
         document.addEventListener('scroll', setAvailableWords); 
     });
@@ -114,17 +111,13 @@ function showNextStanza(event) {
     const availableWords = Array.from(document.getElementsByClassName('available'));
     const times = computeAppearanceTimes(root, availableWords);
 
-    for (let word in times) {
+    /* For each available word, set a timeout to show it */
+    for (let availableWord of availableWords) {
+        const word = availableWord.textContent;
         const time = times[word];
         timerId = setTimeout(function() {
-            const elements = document.querySelectorAll(`#${clean(word)}`);
-            elements.forEach(element => {
-                if (element.classList.contains('available')) {
-                    element.classList.add('visible');
-                    element.classList.remove('available');
-                }
-            })
-            poemDisplayed = true;
+            availableWord.classList.add('visible');
+            availableWord.classList.remove('available');
         }, 1000*time);
     }
 }
@@ -134,12 +127,8 @@ function setAvailableWords() {
     const words = document.getElementsByClassName('word');
     for (let i = 0; i < words.length; i++) {
         const word = words[i];
-        word.id = clean(word.textContent);
-
-        /* Set all words whose bottom is above the window's bottom as available */
         const rect = word.getBoundingClientRect();
         const isWithin = rect.bottom <= window.innerHeight;
-    
         if (isWithin && !word.classList.contains('visible') && !word.classList.contains('title-word')) {
             word.classList.add('available');
             word.addEventListener('click', setAvailableWords);
@@ -175,7 +164,7 @@ function debounce(callback, delay) {
 const throttledScrollHandler = throttle(function () {
 
     // If poem is not displayed and user scrolls past threshold, show banner
-    if (window.scrollY > 250 && !poemDisplayed) {
+    if (window.scrollY > headerThreshold && !poemDisplayed) {
         banner.classList.add('show');
     } else {
         banner.classList.remove('show');
@@ -186,8 +175,7 @@ const throttledScrollHandler = throttle(function () {
         let visibleBottoms = visibleWords.map(word => word.getBoundingClientRect().bottom);
         const max_visible_bottom = Math.max(...visibleBottoms);
         const height = window.scrollY;
-        console.log('Max visible bottom: ', max_visible_bottom, 'Height: ', height)
-        const isPast = max_visible_bottom < 0.1 * height;
+        const isPast = max_visible_bottom < 0.05 * height;
 
         if (isPast) {
             const visibleWordsFiltered = visibleWords.filter(word => word.textContent.length > 3);
