@@ -14,7 +14,7 @@ let buttonClicked = false;
 // ---------------- Constants ---------------- //
 
 const dir = '/portfolio/womb/';
-const maxImages = 29;         // Number of images in directory
+const maxImages = 28;         // Number of images in directory
 const randomOrder = Array.from({ length: maxImages }, (_, i) => i + 1).sort(() => Math.random() - 0.5);
 let idx = 0;
 const timeDelay = 50;          // Adjust the delay between each image addition
@@ -27,8 +27,6 @@ const headerThreshold = 120;  // Adjust the threshold for header menu visibility
 
 function loadImage() {
   index = randomOrder[idx];
-
-  /* Add new image */
   const newImage = new Image();
   newImage.src = dir + 'womb' + index + '.png';
   newImage.classList.add('fade-in');
@@ -40,13 +38,12 @@ function loadImage() {
   setTimeout(() => {
     newImage.style.opacity = 1;
   }, 100);
-  if (artInspiration.children.length > 1) {
-    const oldImage = artInspiration.children[0];
-    oldImage.style.opacity = 0;
-    setTimeout(() => {
-      artInspiration.removeChild(oldImage);
-    }, imageFadeDuration);
-  }
+  setTimeout(() => {
+    const oldImage = document.querySelector('.fade-out');
+    if (oldImage) {
+      oldImage.remove();
+    }
+  }, imageFadeDuration);
 }
 
 function nextImage() {
